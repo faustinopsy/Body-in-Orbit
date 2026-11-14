@@ -25,6 +25,7 @@ export function createNav(app) {
     element.setAttribute('aria-label', app.t('nav.label'));
     buttons.forEach(({ route, button, label }) => {
       label.textContent = app.t(`nav.${route}`);
+      button.title = label.textContent;
       button.setAttribute('aria-current', route === state.route ? 'page' : 'false');
     });
   }

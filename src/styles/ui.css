@@ -1,6 +1,9 @@
 @layer ui {
   button {
     font: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.2;
     color: var(--color-text);
     background: var(--color-surface);
     border: 1px solid var(--color-line);
@@ -9,15 +12,53 @@
     cursor: pointer;
   }
 
+  button:hover:not(:disabled) {
+    border-color: var(--color-accent);
+  }
+
   button:disabled {
-    opacity: 0.6;
-    cursor: wait;
+    opacity: 0.55;
+    cursor: default;
   }
 
   .button--primary {
     background: var(--color-accent);
     border-color: var(--color-accent);
     color: var(--color-on-accent);
+    box-shadow: 0 4px 14px color-mix(in srgb, var(--color-accent) 32%, transparent);
+  }
+
+  .glass {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: var(--blur);
+    backdrop-filter: var(--blur);
+  }
+
+  .label {
+    margin: 0;
+    font: 600 11px/1.2 var(--font-data);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-text-soft);
+  }
+
+  .seal {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 4px 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font: 500 12px/1.2 var(--font-data);
+    color: var(--color-text-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 260px;
   }
 
   .screen__title {
@@ -33,7 +74,6 @@
     min-height: 1.5em;
   }
 }
-
 
 @layer ui {
   .icon {

@@ -14,4 +14,6 @@ export default {
   'fullscreen.exit': 'Exit full screen',
   'nav.mission': 'Mission',
   'nav.help': 'Help',
+  'seal.mission': 'Mission · day {day} of {days}',
+  'seal.data': 'Data: {name}',
 };

@@ -6,30 +6,62 @@
     --space-2: 0.5rem;
     --space-3: 0.75rem;
     --space-4: 1.25rem;
-    --radius: 0.5rem;
-    --font: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-    --color-bg: #f4f6fa;
-    --color-surface: #ffffff;
-    --color-text: #17202e;
-    --color-text-soft: #55627a;
-    --color-line: #d3dae6;
-    --color-accent: #1f5fbf;
+    --radius: 10px;
+    --radius-panel: 16px;
+    --font-display: 'Barlow Condensed', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+    --font-body: 'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-data: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+    --font: var(--font-body);
+    --color-bg: #e4ecf7;
+    --background:
+      radial-gradient(60% 55% at 12% 8%, rgb(110 160 255 / 0.42), transparent 70%),
+      radial-gradient(50% 50% at 92% 18%, rgb(150 200 255 / 0.5), transparent 70%),
+      radial-gradient(55% 60% at 80% 100%, rgb(120 140 230 / 0.34), transparent 72%),
+      radial-gradient(45% 45% at 5% 95%, rgb(160 210 245 / 0.5), transparent 70%),
+      linear-gradient(135deg, #dfe9f7 0%, #eef3fb 48%, #d9e5f5 100%);
+    --color-panel: #fbfdff;
+    --color-surface: rgb(255 255 255 / 0.78);
+    --glass: rgb(255 255 255 / 0.56);
+    --glass-border: rgb(255 255 255 / 0.9);
+    --glass-shadow: 0 10px 34px rgb(36 64 110 / 0.14), 0 1px 0 rgb(255 255 255 / 0.95) inset;
+    --blur: blur(18px) saturate(1.5);
+    --color-text: #12233b;
+    --color-text-2: #394d69;
+    --color-text-soft: #5a6c86;
+    --color-line: rgb(50 85 140 / 0.17);
+    --color-grid: rgb(50 85 140 / 0.09);
+    --color-accent: #2c4f8c;
     --color-on-accent: #ffffff;
-    --status-ok: #1e8a4c;
-    --status-warning: #b7791f;
-    --status-critical: #c53030;
+    --status-ok: #13805c;
+    --status-warning: #a86e00;
+    --status-critical: #c8322a;
+    --status-none: #9eadc0;
+    color-scheme: light;
   }
 
   [data-theme='dark'] {
-    --color-bg: #0e131c;
-    --color-surface: #161d29;
-    --color-text: #e6ebf3;
-    --color-text-soft: #9aa8c0;
-    --color-line: #2a3547;
-    --color-accent: #6aa2ff;
-    --color-on-accent: #0e131c;
-    --status-ok: #52c786;
-    --status-warning: #e2b04a;
-    --status-critical: #ff7b7b;
+    --color-bg: #0c1422;
+    --background:
+      radial-gradient(60% 55% at 12% 8%, rgb(60 100 200 / 0.38), transparent 70%),
+      radial-gradient(50% 50% at 92% 18%, rgb(70 120 210 / 0.3), transparent 70%),
+      radial-gradient(55% 60% at 80% 100%, rgb(80 90 190 / 0.3), transparent 72%),
+      linear-gradient(135deg, #0b1322 0%, #11203a 52%, #0a1220 100%);
+    --color-panel: #162235;
+    --color-surface: rgb(24 38 62 / 0.8);
+    --glass: rgb(24 38 62 / 0.56);
+    --glass-border: rgb(255 255 255 / 0.13);
+    --glass-shadow: 0 10px 34px rgb(0 0 0 / 0.35), 0 1px 0 rgb(255 255 255 / 0.07) inset;
+    --color-text: #e6edf7;
+    --color-text-2: #b9c7da;
+    --color-text-soft: #8b9db6;
+    --color-line: rgb(150 180 230 / 0.2);
+    --color-grid: rgb(150 180 230 / 0.1);
+    --color-accent: #8fb0ff;
+    --color-on-accent: #0c1422;
+    --status-ok: #3fbf95;
+    --status-warning: #f2b33d;
+    --status-critical: #ff6a5f;
+    --status-none: #55667c;
+    color-scheme: dark;
   }
 }

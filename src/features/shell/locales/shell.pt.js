@@ -14,4 +14,6 @@ export default {
   'fullscreen.exit': 'Sair da tela cheia',
   'nav.mission': 'Missão',
   'nav.help': 'Ajuda',
+  'seal.mission': 'Missão · dia {day} de {days}',
+  'seal.data': 'Dados: {name}',
 };
