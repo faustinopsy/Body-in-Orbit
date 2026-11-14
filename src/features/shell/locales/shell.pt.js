@@ -1,0 +1,13 @@
+export default {
+  'app.title': 'Corpo em Órbita',
+  'nav.label': 'Navegação principal',
+  'nav.dashboard': 'Painel',
+  'nav.today': 'Hoje',
+  'nav.data': 'Dados',
+  'locale.label': 'Idioma',
+  'locale.pt': 'PT',
+  'locale.en': 'EN',
+  'theme.toggle': 'Alternar tema',
+  'theme.light': 'Tema claro',
+  'theme.dark': 'Tema escuro',
+};

@@ -1,0 +1,35 @@
+@layer ui {
+  button {
+    font: inherit;
+    color: var(--color-text);
+    background: var(--color-surface);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    padding: var(--space-2) var(--space-3);
+    cursor: pointer;
+  }
+
+  button:disabled {
+    opacity: 0.6;
+    cursor: wait;
+  }
+
+  .button--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .screen__title {
+    margin-top: 0;
+  }
+
+  .screen__text--soft {
+    color: var(--color-text-soft);
+  }
+
+  .screen__error {
+    color: var(--status-critical);
+    min-height: 1.5em;
+  }
+}

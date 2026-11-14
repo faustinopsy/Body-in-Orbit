@@ -1,0 +1,58 @@
+@layer features {
+  .shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .shell__header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-surface);
+  }
+
+  .shell__title {
+    margin: 0;
+    font-size: 1.1rem;
+  }
+
+  .shell__tools {
+    display: flex;
+    gap: var(--space-2);
+    margin-left: auto;
+  }
+
+  .shell__main {
+    flex: 1;
+    padding: var(--space-4);
+    max-width: 72rem;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .nav {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .nav__button[aria-current='page'] {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-color: var(--color-accent);
+  }
+
+  .switch {
+    display: flex;
+    gap: var(--space-1);
+  }
+
+  .switch__button[aria-pressed='true'] {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    border-color: var(--color-accent);
+  }
+}

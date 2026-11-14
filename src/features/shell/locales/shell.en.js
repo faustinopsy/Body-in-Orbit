@@ -1,0 +1,13 @@
+export default {
+  'app.title': 'Body in Orbit',
+  'nav.label': 'Main navigation',
+  'nav.dashboard': 'Dashboard',
+  'nav.today': 'Today',
+  'nav.data': 'Data',
+  'locale.label': 'Language',
+  'locale.pt': 'PT',
+  'locale.en': 'EN',
+  'theme.toggle': 'Toggle theme',
+  'theme.light': 'Light theme',
+  'theme.dark': 'Dark theme',
+};
