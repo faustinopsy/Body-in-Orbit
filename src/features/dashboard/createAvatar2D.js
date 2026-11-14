@@ -1,64 +1,54 @@
 import { createElement } from '../../ui/createElement.js';
 import { createSvgElement } from '../../ui/createSvgElement.js';
-import { layerById } from '../../domain/layers.js';
-import { AVATAR_VIEW_BOX, BODY_SHAPES, REGION_SHAPES } from './avatarShapes.js';
+import { AVATAR_VIEW_BOX, BODY_LAYERS } from './body/bodyLayers.js';
+import { SILHOUETTE } from './body/silhouette.js';
+import { createLayerGroups } from './body/createLayerGroups.js';
 import './avatar.css';
 
-function createRegion(app, shape) {
-  const classes = ['avatar__region', shape.outline ? 'avatar__region--outline' : ''];
-  const element = createSvgElement(shape.tag, {
-    ...shape.attrs,
-    class: classes.join(' ').trim(),
-    'data-region': shape.regionId,
-    role: 'button',
-    tabindex: 0,
-  });
-  const choose = () => app.commands.selectRegion(shape.regionId);
-  element.addEventListener('click', choose);
-  element.addEventListener('keydown', (event) => {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
-    event.preventDefault();
-    choose();
-  });
-  return element;
+const SHADE_ID = 'avatar-shade';
+
+function createShade() {
+  const stop = (offset, kind) => createSvgElement('stop', { offset, class: `avatar__stop-${kind}` });
+  const gradient = createSvgElement('linearGradient', { id: SHADE_ID, x1: 0, x2: 1 }, stop(0, 'edge'), stop(0.5, 'middle'), stop(1, 'edge'));
+  return createSvgElement('defs', {}, gradient);
 }
 
-function statusClass(status) {
-  return status ? `status--${status}` : 'status--none';
-}
+const silhouette = (className, attributes = {}) => createSvgElement(
+  'g',
+  { class: className, 'aria-hidden': 'true', ...attributes },
+  ...SILHOUETTE.map((shape) => createSvgElement(shape.tag, shape.attrs)),
+);
 
 export function createAvatar2D(app) {
-  const body = BODY_SHAPES.map(({ tag, attrs }) => createSvgElement(tag, { ...attrs, class: 'avatar__body' }));
-  const regions = REGION_SHAPES.map((shape) => createRegion(app, shape));
+  const back = createLayerGroups(app, BODY_LAYERS, true);
+  const front = createLayerGroups(app, BODY_LAYERS, false);
   const svg = createSvgElement(
     'svg',
     { viewBox: AVATAR_VIEW_BOX, class: 'avatar__svg', role: 'group' },
-    createSvgElement('g', { 'aria-hidden': 'true' }, ...body),
-    ...regions,
+    createShade(),
+    ...back,
+    silhouette('avatar__outline'),
+    silhouette('avatar__body', { fill: `url(#${SHADE_ID})` }),
+    ...front,
   );
   const caption = createElement('p', { class: 'avatar__caption', 'aria-live': 'polite' });
   const element = createElement('figure', { class: 'avatar' }, svg, caption);
-
-  function updateRegion(region, state, view) {
-    const regionId = region.dataset.region;
-    const inLayer = layerById(state.layerId).regions.includes(regionId);
-    const status = view.snapshot.regions[regionId];
-    region.setAttribute('class', [
-      'avatar__region',
-      region.classList.contains('avatar__region--outline') ? 'avatar__region--outline' : '',
-      inLayer ? statusClass(status) : 'avatar__region--dim',
-      regionId === state.regionId ? 'is-selected' : '',
-    ].join(' ').replace(/\s+/g, ' ').trim());
-    region.setAttribute('aria-label', `${app.t(`region.${regionId}`)}: ${app.t(`status.${status}`)}`);
-    region.setAttribute('aria-pressed', String(regionId === state.regionId));
-  }
+  const regions = [...svg.querySelectorAll('[data-region]')];
+  const layers = [...back, ...front];
 
   function update(state, view) {
     svg.setAttribute('aria-label', app.t('avatar.label'));
-    regions.forEach((region) => updateRegion(region, state, view));
-    const regionId = state.regionId;
-    caption.textContent = regionId
-      ? `${app.t(`region.${regionId}`)}: ${app.t(`status.${view.snapshot.regions[regionId]}`)}`
+    layers.forEach((layer) => layer.setAttribute('display', layer.dataset.layer === state.layerId ? 'inline' : 'none'));
+    regions.forEach((region) => {
+      const regionId = region.dataset.region;
+      const status = view.snapshot.regions[regionId];
+      const selected = regionId === state.regionId;
+      region.setAttribute('class', `avatar__region status--${status}${selected ? ' is-selected' : ''}`);
+      region.setAttribute('aria-label', `${app.t(`region.${regionId}`)}: ${app.t(`status.${status}`)}`);
+      if (region.hasAttribute('tabindex')) region.setAttribute('aria-pressed', String(selected));
+    });
+    caption.textContent = state.regionId
+      ? `${app.t(`region.${state.regionId}`)}: ${app.t(`status.${view.snapshot.regions[state.regionId]}`)}`
       : app.t('avatar.hint');
   }
 

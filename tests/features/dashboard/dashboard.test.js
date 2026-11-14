@@ -36,8 +36,11 @@ describe('dashboard', () => {
     expect(one('[data-region="muscle-calf"]').getAttribute('class')).toContain('status--ok');
   });
 
-  it('dims regions that are not in the selected layer', () => {
-    expect(one('[data-region="muscle-calf"]').getAttribute('class')).toContain('avatar__region--dim');
+  it('shows only the drawing of the selected layer', () => {
+    const shown = () => all('.avatar__layer').filter((layer) => layer.getAttribute('display') === 'inline');
+    expect(shown().every((layer) => layer.dataset.layer === 'skeleton')).toBe(true);
+    app.commands.selectLayer('sleep');
+    expect(shown().every((layer) => layer.dataset.layer === 'sleep')).toBe(true);
   });
 
   it('selects a region by click and by keyboard', () => {

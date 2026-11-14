@@ -1,45 +1,165 @@
 @layer features {
   .avatar {
+    --avatar-skin: #e9eef6;
+    --avatar-skin-edge: #cfd8e6;
+    --avatar-outline: #9fb0c8;
+    --avatar-bone: #fbfaf6;
+    --avatar-bone-edge: #8c96a6;
+    --avatar-muscle: #e8b4ad;
+    --avatar-vein: #6d8fd6;
+    --avatar-ink: #3b4252;
+
     margin: 0;
     text-align: center;
   }
 
+  [data-theme='dark'] .avatar {
+    --avatar-skin: #273449;
+    --avatar-skin-edge: #1b2434;
+    --avatar-outline: #4a5d7a;
+    --avatar-bone: #dfe6f0;
+    --avatar-bone-edge: #7b889c;
+    --avatar-muscle: #8c5652;
+    --avatar-vein: #5b7fd0;
+    --avatar-ink: #0e131c;
+  }
+
   .avatar__svg {
     width: 100%;
-    max-width: 16rem;
+    max-width: 17rem;
     height: auto;
   }
 
-  .avatar__body {
-    fill: var(--color-line);
+  .avatar__stop-edge {
+    stop-color: var(--avatar-skin-edge);
+  }
+
+  .avatar__stop-middle {
+    stop-color: var(--avatar-skin);
+  }
+
+  .avatar__outline {
+    fill: none;
+    stroke: var(--avatar-outline);
+    stroke-width: 3.2;
   }
 
   .avatar__region {
-    fill: var(--region-color, var(--color-text-soft));
-    stroke: none;
     cursor: pointer;
+    outline: none;
   }
 
-  .avatar__region--outline {
+  .avatar__fill {
+    fill: var(--region-color);
+    stroke: color-mix(in srgb, var(--region-color) 60%, black);
+    stroke-width: 0.8;
+  }
+
+  .avatar__line,
+  .avatar__nerve {
     fill: none;
-    stroke: var(--region-color, var(--color-text-soft));
-    stroke-width: 4;
+    stroke: var(--region-color);
+    stroke-width: 2.4;
+    stroke-linecap: round;
   }
 
-  .avatar__region--dim {
-    fill: var(--color-text-soft);
-    opacity: 0.18;
+  .avatar__nerve {
+    stroke-width: 1.4;
   }
 
-  .avatar__region--outline.avatar__region--dim {
+  .avatar__hit {
     fill: none;
-    stroke: var(--color-text-soft);
-    stroke-width: 2;
+    stroke: transparent;
+    stroke-width: 10;
   }
 
-  .avatar__region.is-selected {
-    stroke: var(--color-text);
-    stroke-width: 3;
+  .avatar__area {
+    fill: transparent;
+  }
+
+  .avatar__aura-outer,
+  .avatar__aura-middle,
+  .avatar__aura-inner {
+    fill: none;
+    stroke: var(--region-color);
+    stroke-linejoin: round;
+  }
+
+  .avatar__aura-outer {
+    stroke-width: 26;
+    opacity: 0.12;
+  }
+
+  .avatar__aura-middle {
+    stroke-width: 15;
+    opacity: 0.22;
+  }
+
+  .avatar__aura-inner {
+    stroke-width: 6;
+    opacity: 0.55;
+  }
+
+  .avatar__bone {
+    fill: var(--avatar-bone);
+    stroke: var(--avatar-bone-edge);
+    stroke-width: 0.8;
+  }
+
+  .avatar__bone-edge,
+  .avatar__bone-line {
+    fill: none;
+    stroke-linecap: round;
+  }
+
+  .avatar__bone-edge {
+    stroke: var(--avatar-bone-edge);
+    stroke-width: 4.2;
+  }
+
+  .avatar__bone-line {
+    stroke: var(--avatar-bone);
+    stroke-width: 2.8;
+  }
+
+  .avatar__socket {
+    fill: var(--avatar-bone-edge);
+    opacity: 0.8;
+  }
+
+  .avatar__ink {
+    fill: var(--avatar-ink);
+  }
+
+  .avatar__contour {
+    fill: none;
+    stroke: color-mix(in srgb, var(--avatar-ink) 70%, transparent);
+    stroke-width: 1;
+    stroke-linecap: round;
+  }
+
+  .avatar__detail .avatar__contour {
+    stroke: var(--avatar-outline);
+  }
+
+  .avatar__muscle {
+    fill: var(--avatar-muscle);
+    stroke: color-mix(in srgb, var(--avatar-muscle) 60%, black);
+    stroke-width: 0.6;
+    opacity: 0.85;
+  }
+
+  .avatar__vein {
+    fill: none;
+    stroke: var(--avatar-vein);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    opacity: 0.8;
+  }
+
+  .avatar__region.is-selected,
+  .avatar__region:focus-visible {
+    filter: drop-shadow(0 0 3px var(--color-text));
   }
 
   .avatar__caption {

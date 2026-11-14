@@ -27,7 +27,7 @@ export default {
   'region.muscle-calf': 'Calf muscles',
   'region.cardio-heart': 'Heart',
   'region.cardio-vessels': 'Blood vessels',
-  'region.sleep-brain': 'Brain (sleep)',
+  'region.sleep-brain': 'Brain and nerves (sleep)',
   'region.radiation-body': 'Whole body (radiation)',
   'metric.bone.spineDensity': 'Spine bone density',
   'metric.bone.hipDensity': 'Hip bone density',

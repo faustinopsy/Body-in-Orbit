@@ -27,7 +27,7 @@ export default {
   'region.muscle-calf': 'Músculos da panturrilha',
   'region.cardio-heart': 'Coração',
   'region.cardio-vessels': 'Vasos sanguíneos',
-  'region.sleep-brain': 'Cérebro (sono)',
+  'region.sleep-brain': 'Cérebro e nervos (sono)',
   'region.radiation-body': 'Corpo inteiro (radiação)',
   'metric.bone.spineDensity': 'Densidade óssea da coluna',
   'metric.bone.hipDensity': 'Densidade óssea do quadril',
