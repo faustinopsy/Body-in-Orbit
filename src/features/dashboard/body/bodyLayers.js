@@ -1,6 +1,7 @@
 import { skeletonLayer } from './skeletonLayer.js';
 import { musclesLayer } from './musclesLayer.js';
 import { cardioLayer } from './cardioLayer.js';
+import { neuroOcularLayer } from './neuroOcularLayer.js';
 import { sleepLayer } from './sleepLayer.js';
 import { radiationLayer } from './radiationLayer.js';
 
@@ -10,6 +11,7 @@ export const BODY_LAYERS = {
   skeleton: skeletonLayer(),
   muscles: musclesLayer(),
   cardiovascular: cardioLayer(),
+  neuroOcular: neuroOcularLayer(),
   sleep: sleepLayer(),
   radiation: radiationLayer(),
 };

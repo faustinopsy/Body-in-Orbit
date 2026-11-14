@@ -2,6 +2,7 @@ export const LAYERS = [
   { id: 'skeleton', regions: ['bone-spine', 'bone-hip', 'bone-tibia'] },
   { id: 'muscles', regions: ['muscle-core', 'muscle-thigh', 'muscle-calf'] },
   { id: 'cardiovascular', regions: ['cardio-heart', 'cardio-vessels'] },
+  { id: 'neuroOcular', regions: ['eye-optic'] },
   { id: 'sleep', regions: ['sleep-brain'] },
   { id: 'radiation', regions: ['radiation-body'] },
 ];

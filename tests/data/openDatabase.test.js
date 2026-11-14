@@ -9,7 +9,7 @@ const uniqueName = () => `test-db-${(counter += 1)}`;
 describe('openDatabase', () => {
   it('creates the stores declared by the migrations', async () => {
     const database = await openDatabase({ name: uniqueName() });
-    expect([...database.objectStoreNames]).toEqual(['datasets', 'preferences']);
+    expect([...database.objectStoreNames]).toEqual(['datasets', 'missions', 'preferences']);
   });
 
   it('runs only the migrations the database has not seen yet', async () => {

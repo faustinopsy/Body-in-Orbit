@@ -13,6 +13,11 @@ import { syncFullscreen } from './commands/syncFullscreen.js';
 import { startDemo } from './commands/startDemo.js';
 import { startCrewSetup } from './commands/startCrewSetup.js';
 import { closeWelcome } from './commands/closeWelcome.js';
+import { updateMissionDraft } from './commands/updateMissionDraft.js';
+import { addCrewMember } from './commands/addCrewMember.js';
+import { removeCrewMember } from './commands/removeCrewMember.js';
+import { saveMission } from './commands/saveMission.js';
+import { setHelpMission } from './commands/setHelpMission.js';
 
 export function createCommands(app) {
   return {
@@ -31,5 +36,10 @@ export function createCommands(app) {
     startDemo: startDemo(app),
     startCrewSetup: startCrewSetup(app),
     closeWelcome: closeWelcome(app),
+    updateMissionDraft: updateMissionDraft(app),
+    addCrewMember: addCrewMember(app),
+    removeCrewMember: removeCrewMember(app),
+    saveMission: saveMission(app),
+    setHelpMission: setHelpMission(app),
   };
 }

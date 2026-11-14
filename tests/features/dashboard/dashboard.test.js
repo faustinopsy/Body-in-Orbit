@@ -18,7 +18,7 @@ const one = (selector) => root.querySelector(selector);
 describe('dashboard', () => {
   it('shows the crew picker, the five layers and the avatar regions', () => {
     expect(all('.picker__button')).toHaveLength(3);
-    expect(all('.rail__button')).toHaveLength(5);
+    expect(all('.rail__button')).toHaveLength(6);
     expect(all('.avatar__region').length).toBeGreaterThanOrEqual(10);
   });
 

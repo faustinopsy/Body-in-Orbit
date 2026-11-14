@@ -5,6 +5,7 @@ import { createShell } from '../features/shell/createShell.js';
 import { createWelcomeDialog } from '../features/welcome/createWelcomeDialog.js';
 import { syncDocument } from './syncDocument.js';
 import { MESSAGES } from './messages.js';
+import { createMissionDraft } from '../domain/missions/validateMission.js';
 
 const DEFAULT_LOCALE = 'en';
 const INITIAL_STATE = {
@@ -20,6 +21,9 @@ const INITIAL_STATE = {
   metricId: null,
   fullscreen: false,
   welcomeOpen: false,
+  missionDraft: createMissionDraft(),
+  missionErrors: [],
+  helpMissionTypeId: 'leo-long',
 };
 
 export async function createApp(root, services) {

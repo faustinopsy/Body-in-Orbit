@@ -27,19 +27,19 @@ describe('sample dataset', () => {
   });
 
   it('keeps C01 healthy for the whole mission', () => {
-    expect(countByStatus('C01', 120)).toEqual({ ok: 11, warning: 0, critical: 0 });
-    expect(countByStatus('C01', 180)).toEqual({ ok: 11, warning: 0, critical: 0 });
+    expect(countByStatus('C01', 120)).toEqual({ ok: 12, warning: 0, critical: 0 });
+    expect(countByStatus('C01', 180)).toEqual({ ok: 12, warning: 0, critical: 0 });
   });
 
   it('shows C02 with 8 metrics in warning on day 120', () => {
-    expect(countByStatus('C02', 120)).toEqual({ ok: 3, warning: 8, critical: 0 });
+    expect(countByStatus('C02', 120)).toEqual({ ok: 3, warning: 9, critical: 0 });
   });
 
   it('shows C02 with 3 metrics in critical on day 180', () => {
-    expect(countByStatus('C02', 180)).toEqual({ ok: 3, warning: 5, critical: 3 });
+    expect(countByStatus('C02', 180)).toEqual({ ok: 3, warning: 5, critical: 4 });
   });
 
   it('shows C03 with sleep and radiation in warning on day 120', () => {
-    expect(countByStatus('C03', 120)).toEqual({ ok: 8, warning: 3, critical: 0 });
+    expect(countByStatus('C03', 120)).toEqual({ ok: 9, warning: 3, critical: 0 });
   });
 });

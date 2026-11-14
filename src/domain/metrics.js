@@ -7,6 +7,7 @@ export const METRICS = [
   { id: 'muscle.calfStrength', layerId: 'muscles', regionId: 'muscle-calf', unit: '%', baseline: 100, worse: 'down', warning: 85, critical: 75 },
   { id: 'cardio.restingHeartRate', layerId: 'cardiovascular', regionId: 'cardio-heart', unit: 'bpm', baseline: 60, worse: 'up', warning: 75, critical: 90 },
   { id: 'cardio.recoveryHeartRate', layerId: 'cardiovascular', regionId: 'cardio-vessels', unit: 'bpm', baseline: 30, worse: 'down', warning: 22, critical: 15 },
+  { id: 'eye.sansSigns', layerId: 'neuroOcular', regionId: 'eye-optic', unit: '0-4', baseline: 0, min: 0, max: 4, worse: 'up', warning: 1, critical: 2 },
   { id: 'sleep.hours', layerId: 'sleep', regionId: 'sleep-brain', unit: 'h', baseline: 7.5, worse: 'down', warning: 6, critical: 5 },
   { id: 'sleep.quality', layerId: 'sleep', regionId: 'sleep-brain', unit: '1-5', baseline: 4, worse: 'down', warning: 3, critical: 2 },
   { id: 'radiation.dose', layerId: 'radiation', regionId: 'radiation-body', unit: 'mSv', baseline: 0, worse: 'up', warning: 120, critical: 180 },
@@ -17,3 +18,5 @@ export const metricById = (metricId) => METRICS.find((metric) => metric.id === m
 export const metricsOfLayer = (layerId) => METRICS.filter((metric) => metric.layerId === layerId);
 
 export const metricsOfRegion = (regionId) => METRICS.filter((metric) => metric.regionId === regionId);
+
+export const clampToMetric = (metric, value) => Math.min(metric.max ?? Infinity, Math.max(metric.min ?? -Infinity, value));

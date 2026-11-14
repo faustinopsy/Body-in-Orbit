@@ -30,7 +30,7 @@ describe('welcome dialog', () => {
     const app = await createApp(root, await createTestServices());
     choice('crew').dispatchEvent(new Event('click'));
     expect(dialog().open).toBe(false);
-    expect(app.store.getState().route).toBe('data');
+        expect(app.store.getState().route).toBe('mission');
   });
 
   it('stays open and shows the error when the demo cannot be loaded', async () => {

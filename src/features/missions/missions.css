@@ -1,0 +1,96 @@
+@layer features {
+  .mission-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+    align-items: start;
+  }
+
+  .form {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-4);
+    padding: var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+  }
+
+  .crew-form {
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    align-items: end;
+  }
+
+  .form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .form__label {
+    font-size: 0.9rem;
+    color: var(--color-text-soft);
+  }
+
+  .form input,
+  .form select {
+    font: inherit;
+    padding: var(--space-2);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .risk-preview__list {
+    list-style: none;
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .risk-row {
+    display: grid;
+    grid-template-columns: 9rem 1fr 8rem;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .risk-row__bar {
+    height: 0.6rem;
+    border-radius: 999px;
+    background: var(--color-line);
+    overflow: hidden;
+  }
+
+  .risk-row__fill {
+    display: block;
+    height: 100%;
+    background: var(--region-color);
+  }
+
+  .risk-row__level {
+    font-size: 0.85rem;
+  }
+
+  .crew-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .crew-list__item {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    align-items: center;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+  }
+
+  .mission-errors {
+    padding-left: var(--space-4);
+  }
+}

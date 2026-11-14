@@ -40,4 +40,7 @@ export default {
   'metric.sleep.hours': 'Duração do sono',
   'metric.sleep.quality': 'Qualidade do sono',
   'metric.radiation.dose': 'Dose de radiação',
+  'layer.neuroOcular': 'Olhos e cérebro (SANS)',
+  'region.eye-optic': 'Olhos e nervo óptico',
+  'metric.eye.sansSigns': 'Sinais de SANS (média esperada)',
 };

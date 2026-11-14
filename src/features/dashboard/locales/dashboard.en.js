@@ -40,4 +40,7 @@ export default {
   'metric.sleep.hours': 'Sleep duration',
   'metric.sleep.quality': 'Sleep quality',
   'metric.radiation.dose': 'Radiation dose',
+   'layer.neuroOcular': 'Eyes and brain (SANS)',
+  'region.eye-optic': 'Eyes and optic nerve',
+  'metric.eye.sansSigns': 'SANS signs (expected average)',
 };

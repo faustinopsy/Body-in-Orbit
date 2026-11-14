@@ -1,1 +1,1 @@
-export const ROUTES = ['dashboard', 'today', 'data'];
+export const ROUTES = ['dashboard', 'mission', 'today', 'data'];

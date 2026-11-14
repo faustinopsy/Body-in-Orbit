@@ -8,7 +8,7 @@ describe('buildSnapshot', () => {
   it('keeps the healthy crew member normal on the last day', () => {
     const snapshot = buildSnapshot(dataset, 'C01', 180);
     expect(snapshot.overall).toBe('ok');
-    expect(Object.keys(snapshot.metrics)).toHaveLength(11);
+    expect(Object.keys(snapshot.metrics)).toHaveLength(12);
   });
 
   it('shows the worst status of each region and layer', () => {

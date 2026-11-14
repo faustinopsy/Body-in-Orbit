@@ -2,7 +2,7 @@ import { openDatabase } from '../../src/data/openDatabase.js';
 import { createPreferenceRepository } from '../../src/data/preferenceRepository.js';
 import { createDatasetRepository } from '../../src/data/datasetRepository.js';
 import { buildSampleDataset } from '../../src/domain/dataset/simulate.js';
-
+import { createMissionRepository } from '../../src/data/missionRepository.js';
 let counter = 0;
 
 export async function createTestServices(overrides = {}) {
@@ -12,6 +12,7 @@ export async function createTestServices(overrides = {}) {
     preferences: createPreferenceRepository(database),
     datasets: createDatasetRepository(database),
     loadSample: async () => buildSampleDataset(),
+    missions: createMissionRepository(database),
     ...overrides,
   };
 }

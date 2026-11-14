@@ -1,3 +1,3 @@
 export const startCrewSetup = (app) => () => {
-  app.store.update({ welcomeOpen: false, route: 'data' });
+  app.store.update({ welcomeOpen: false, route: 'mission' });
 };

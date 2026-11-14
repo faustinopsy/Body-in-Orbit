@@ -3,6 +3,7 @@ import { createPreferenceRepository } from '../data/preferenceRepository.js';
 import { createDatasetRepository } from '../data/datasetRepository.js';
 import { fetchSampleDataset } from './adapters/fetchSampleDataset.js';
 import { createFullscreen } from './adapters/createFullscreen.js';
+import { createMissionRepository } from '../data/missionRepository.js';
 export async function createServices() {
     
   const database = await openDatabase();
@@ -11,5 +12,6 @@ export async function createServices() {
     preferences: createPreferenceRepository(database),
     datasets: createDatasetRepository(database),
     loadSample: fetchSampleDataset,
+    missions: createMissionRepository(database),
   };
 }

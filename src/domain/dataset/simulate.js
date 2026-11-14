@@ -1,4 +1,4 @@
-import { METRICS } from '../metrics.js';
+import { METRICS, clampToMetric } from '../metrics.js';
 import { createRandom } from './random.js';
 import { CREW_PROFILES, MISSION_DAYS, NOISE } from './profiles.js';
 
@@ -18,7 +18,7 @@ function dailyValues(metric, change, random) {
       values.push(round(total));
     } else {
       const trend = metric.baseline + (change * day) / MISSION_DAYS;
-      values.push(round(trend + noise * random.gaussian()));
+      values.push(round(clampToMetric(metric, trend + noise * random.gaussian())));
     }
   }
   return values;

@@ -12,4 +12,6 @@ export default {
   'theme.dark': 'Dark theme',
 'fullscreen.enter': 'Full screen',
   'fullscreen.exit': 'Exit full screen',
+  'nav.mission': 'Mission',
+  'nav.help': 'Help',
 };
