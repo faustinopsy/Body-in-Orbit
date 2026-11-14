@@ -18,6 +18,7 @@ import {
   Satellite,
   Star,
   Sun,
+  PersonStanding,
   Wrench,
 } from 'lucide';
 
@@ -36,6 +37,7 @@ const ICONS = {
   mountain: Mountain,
   navigation: Navigation,
   orbit: Orbit,
+    'person-standing': PersonStanding,
   rocket: Rocket,
   satellite: Satellite,
   star: Star,
