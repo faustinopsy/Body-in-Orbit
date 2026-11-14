@@ -12,9 +12,15 @@ beforeEach(() => {
 
 const text = (selector) => root.querySelector(selector).textContent;
 
+async function startEnglishApp(overrides) {
+  const app = await createApp(root, await createTestServices(overrides));
+  await app.commands.setLocale('en');
+  return app;
+}
+
 describe('app shell', () => {
   it('renders the title and the three navigation buttons', async () => {
-    await createApp(root, await createTestServices());
+    await startEnglishApp();
     expect(text('.shell__title')).toBe('Body in Orbit');
     expect(root.querySelectorAll('.nav__button')).toHaveLength(3);
   });
@@ -29,36 +35,34 @@ describe('app shell', () => {
   });
 
   it('switches theme on the document', async () => {
-    const app = await createApp(root, await createTestServices());
+    const app = await startEnglishApp();
     await app.commands.setTheme('dark');
     expect(document.documentElement.dataset.theme).toBe('dark');
   });
 
   it('navigates between screens', async () => {
-    const app = await createApp(root, await createTestServices());
+    const app = await startEnglishApp();
     app.commands.goTo('today');
     expect(root.querySelector('[data-screen="today"]')).not.toBeNull();
     expect(root.querySelector('[data-screen="dashboard"]')).toBeNull();
   });
 
   it('opens the demo mission and shows it on the dashboard', async () => {
-    const app = await createApp(root, await createTestServices());
+    const app = await startEnglishApp();
     await app.commands.openSample();
     app.commands.goTo('dashboard');
     expect(text('[data-screen="dashboard"] .screen__text')).toContain('3 crew members and 180 mission days');
   });
 
   it('shows an error when the demo cannot be loaded', async () => {
-    const services = await createTestServices({ loadSample: async () => { throw new Error('offline'); } });
-    const app = await createApp(root, services);
+    const app = await startEnglishApp({ loadSample: async () => { throw new Error('offline'); } });
     app.commands.goTo('data');
     await app.commands.openSample();
     expect(text('.screen__error')).toBe('The demo could not be loaded.');
   });
 
   it('rejects a demo that fails validation', async () => {
-    const services = await createTestServices({ loadSample: async () => ({ format: 'wrong' }) });
-    const app = await createApp(root, services);
+    const app = await startEnglishApp({ loadSample: async () => ({ format: 'wrong' }) });
     app.commands.goTo('data');
     await app.commands.openSample();
     expect(text('.screen__error')).toBe('The demo file failed validation.');
