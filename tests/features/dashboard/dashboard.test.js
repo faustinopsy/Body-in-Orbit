@@ -16,16 +16,19 @@ const all = (selector) => [...root.querySelectorAll(selector)];
 const one = (selector) => root.querySelector(selector);
 
 describe('dashboard', () => {
-  it('shows the crew picker, the five layers and the avatar regions', () => {
-    expect(all('.picker__button')).toHaveLength(3);
+  it('shows the crew tabs, the six layers and the avatar regions', () => {
+    expect(all('.crew__tab')).toHaveLength(3);
     expect(all('.rail__button')).toHaveLength(6);
     expect(all('.avatar__region').length).toBeGreaterThanOrEqual(10);
   });
 
-  it('shows only the cards of the selected layer', () => {
-    expect(all('.card:not([hidden])')).toHaveLength(3);
-    app.commands.selectLayer('sleep');
-    expect(all('.card:not([hidden])')).toHaveLength(2);
+  it('shows only the cards of the selected layer, the worst first', () => {
+    expect(all('.metric-card:not([hidden])')).toHaveLength(3);
+    app.commands.selectCrew('C02');
+    app.commands.selectLayer('muscles');
+    const shown = all('.metric-card:not([hidden])');
+    expect(shown).toHaveLength(3);
+    expect(shown[0].dataset.status).toBe('critical');
   });
 
   it('colours the avatar from the crew member status', () => {
@@ -71,10 +74,10 @@ describe('dashboard', () => {
     expect(one('.avatar__caption').textContent).toBe('Calf muscles: Critical');
   });
 
-  it('shows the projection note for a metric getting worse', async () => {
+  it('shows when a metric getting worse will cross the next limit', () => {
     app.commands.selectCrew('C02');
     app.commands.setDay(120);
-    app.commands.selectMetric('muscle.calfStrength');
-    expect(one('.card[aria-pressed="true"] .card__note').textContent).toMatch(/around day \d+/);
+    app.commands.selectMetric('muscle.thighStrength');
+    expect(one('.metric-card[aria-pressed="true"] .metric-card__limit').textContent).toMatch(/around day \d+|limit reached/);
   });
 });

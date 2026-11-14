@@ -11,11 +11,13 @@ export const restoreSession = (app) => async () => {
   const { preferences } = app.services;
   const locale = await preferences.get('locale', app.i18n.getLocale());
   const theme = await preferences.get('theme', 'light');
+  const zoom = await preferences.get('zoom', 1);
   const dataset = await loadSavedDataset(app.services);
   app.i18n.setLocale(locale);
   app.store.update({
     locale: app.i18n.getLocale(),
     theme,
+    zoom,
     dataset,
     welcomeOpen: !dataset,
     ...(dataset ? initialView(dataset) : {}),

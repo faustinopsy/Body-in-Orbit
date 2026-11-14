@@ -1,11 +1,16 @@
 import {
   createElement as createLucideIcon,
+  BicepsFlexed,
+  Bone,
   CalendarDays,
   CircleHelp,
   Database,
+  ExternalLink,
+  Eye,
   FlaskConical,
   Footprints,
   Globe,
+  Heart,
   LayoutDashboard,
   Maximize,
   Minimize,
@@ -14,21 +19,29 @@ import {
   Mountain,
   Navigation,
   Orbit,
+  Pause,
+  PersonStanding,
+  Play,
+  Radiation,
   Rocket,
   Satellite,
   Star,
   Sun,
-  PersonStanding,
   Wrench,
 } from 'lucide';
 
 const ICONS = {
+  'biceps-flexed': BicepsFlexed,
+  bone: Bone,
   'calendar-days': CalendarDays,
   'circle-help': CircleHelp,
   database: Database,
+  'external-link': ExternalLink,
+  eye: Eye,
   'flask-conical': FlaskConical,
   footprints: Footprints,
   globe: Globe,
+  heart: Heart,
   'layout-dashboard': LayoutDashboard,
   maximize: Maximize,
   minimize: Minimize,
@@ -37,7 +50,10 @@ const ICONS = {
   mountain: Mountain,
   navigation: Navigation,
   orbit: Orbit,
-    'person-standing': PersonStanding,
+  pause: Pause,
+  'person-standing': PersonStanding,
+  play: Play,
+  radiation: Radiation,
   rocket: Rocket,
   satellite: Satellite,
   star: Star,
@@ -53,7 +69,7 @@ export function createIcon(name, size = 18) {
 
 export function swapIcon(current, name) {
   if (current.dataset.icon === name) return current;
-  const next = createIcon(name);
+  const next = createIcon(name, Number(current.getAttribute('width')) || 18);
   current.replaceWith(next);
   return next;
 }

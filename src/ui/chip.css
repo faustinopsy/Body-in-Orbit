@@ -1,0 +1,58 @@
+@layer ui {
+  .shape,
+  .chip::before {
+    content: '';
+    display: inline-block;
+    flex: none;
+    width: 8px;
+    height: 8px;
+    background: var(--shape-color, var(--status-none));
+    border-radius: 2px;
+  }
+
+  [data-status='ok'] {
+    --shape-color: var(--status-ok);
+  }
+
+  [data-status='warning'] {
+    --shape-color: var(--status-warning);
+  }
+
+  [data-status='critical'] {
+    --shape-color: var(--status-critical);
+  }
+
+  .shape[data-status='ok'],
+  .chip[data-status='ok']::before {
+    border-radius: 50%;
+  }
+
+  .shape[data-status='warning'],
+  .chip[data-status='warning']::before {
+    width: 10px;
+    border-radius: 0;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  }
+
+  .shape[data-status='critical'],
+  .chip[data-status='critical']::before {
+    border-radius: 1px;
+    transform: rotate(45deg) scale(0.9);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex: none;
+    padding: 3px 9px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    background: var(--color-surface);
+    font: 600 11px/1.2 var(--font-data);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-2);
+    white-space: nowrap;
+  }
+}

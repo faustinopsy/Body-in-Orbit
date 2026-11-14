@@ -3,6 +3,7 @@ import { buildSnapshot } from '../../domain/snapshot.js';
 import { createCrewPicker } from './createCrewPicker.js';
 import { createTimeline } from './createTimeline.js';
 import { createLayerRail } from './createLayerRail.js';
+import { createLayerHeader } from './createLayerHeader.js';
 import { createMetricCards } from './createMetricCards.js';
 import { createMetricChart } from './createMetricChart.js';
 import { createAvatar2D } from './createAvatar2D.js';
@@ -16,34 +17,47 @@ function buildView(state) {
   return { snapshot: buildSnapshot(dataset, state.crewId, day), crewStatuses };
 }
 
+function createParts(app) {
+  return {
+    rail: createLayerRail(app),
+    crew: createCrewPicker(app),
+    avatar: createAvatar2D(app),
+    timeline: createTimeline(app),
+    header: createLayerHeader(app),
+    cards: createMetricCards(app),
+    chart: createMetricChart(app),
+  };
+}
+
+function buildBoard(parts, notice) {
+  const box = (className, ...children) => createElement('div', { class: className }, ...children);
+  const stage = box('stage', box('stage__crew glass', parts.crew.element), box('stage__avatar', parts.avatar.element), box('stage__timeline glass', parts.timeline.element));
+  const middle = box('board__middle', parts.cards.element, createElement('section', { class: 'board__chart glass' }, parts.chart.element, notice));
+  return box('board', box('board__body', parts.rail.element, stage), box('board__side', parts.header.element, middle));
+}
+
 export function createDashboardScreen(app) {
   const title = createElement('h2', { class: 'screen__title' });
   const summary = createElement('p', { class: 'screen__text' });
-  const notice = createElement('p', { class: 'screen__text screen__text--soft' });
-  const parts = [createCrewPicker(app), createTimeline(app), createLayerRail(app), createAvatar2D(app), createMetricCards(app), createMetricChart(app)];
-  const [crew, timeline, layers, avatar, cards, chart] = parts;
-  const board = createElement(
-    'div',
-    { class: 'board' },
-    createElement('div', { class: 'board__controls' }, crew.element, timeline.element),
-    createElement('div', { class: 'board__layers' }, layers.element),
-    createElement('div', { class: 'board__avatar' }, avatar.element),
-    createElement('div', { class: 'board__details' }, cards.element, chart.element),
-  );
-  const element = createElement('section', { class: 'screen', 'data-screen': 'dashboard' }, title, summary, board, notice);
+  const notice = createElement('p', { class: 'dashboard__notice' });
+  const parts = createParts(app);
+  const board = buildBoard(parts, notice);
+  const element = createElement('section', { class: 'screen dashboard', 'data-screen': 'dashboard' }, title, summary, board);
 
   function update(state) {
-    title.textContent = app.t('dashboard.title');
     const { dataset } = state;
-    board.hidden = !dataset;
+    title.textContent = app.t('dashboard.title');
     notice.textContent = app.t('dashboard.notice');
+    board.hidden = !dataset;
+    element.classList.toggle('dashboard--ready', Boolean(dataset));
+    [title, summary].forEach((part) => part.classList.toggle('sr-only', Boolean(dataset)));
     if (!dataset) {
       summary.textContent = app.t('dashboard.empty');
       return;
     }
     summary.textContent = app.t('dashboard.summary', { crew: dataset.crew.length, days: dataset.missionDays, name: dataset.name });
     const view = buildView(state);
-    parts.forEach((part) => part.update(state, view));
+    Object.values(parts).forEach((part) => part.update(state, view));
   }
 
   return { element, update };

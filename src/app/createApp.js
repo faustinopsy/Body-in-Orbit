@@ -10,6 +10,7 @@ import { createMissionDraft } from '../domain/missions/validateMission.js';
 const DEFAULT_LOCALE = 'en';
 const INITIAL_STATE = {
   theme: 'light',
+  zoom: 1,
   route: 'dashboard',
   dataset: null,
   busy: false,
