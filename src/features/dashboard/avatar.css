@@ -1,0 +1,50 @@
+@layer features {
+  .avatar {
+    margin: 0;
+    text-align: center;
+  }
+
+  .avatar__svg {
+    width: 100%;
+    max-width: 16rem;
+    height: auto;
+  }
+
+  .avatar__body {
+    fill: var(--color-line);
+  }
+
+  .avatar__region {
+    fill: var(--region-color, var(--color-text-soft));
+    stroke: none;
+    cursor: pointer;
+  }
+
+  .avatar__region--outline {
+    fill: none;
+    stroke: var(--region-color, var(--color-text-soft));
+    stroke-width: 4;
+  }
+
+  .avatar__region--dim {
+    fill: var(--color-text-soft);
+    opacity: 0.18;
+  }
+
+  .avatar__region--outline.avatar__region--dim {
+    fill: none;
+    stroke: var(--color-text-soft);
+    stroke-width: 2;
+  }
+
+  .avatar__region.is-selected {
+    stroke: var(--color-text);
+    stroke-width: 3;
+  }
+
+  .avatar__caption {
+    min-height: 3em;
+    margin: var(--space-2) 0 0;
+    color: var(--color-text-soft);
+  }
+}

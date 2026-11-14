@@ -6,7 +6,18 @@ import { syncDocument } from './syncDocument.js';
 import { MESSAGES } from './messages.js';
 
 const DEFAULT_LOCALE = 'en';
-const INITIAL_STATE = { theme: 'light', route: 'dashboard', dataset: null, busy: false, errorKey: null };
+const INITIAL_STATE = {
+  theme: 'light',
+  route: 'dashboard',
+  dataset: null,
+  busy: false,
+  errorKey: null,
+  crewId: null,
+  day: 1,
+  layerId: 'skeleton',
+  regionId: null,
+  metricId: null,
+};
 
 export async function createApp(root, services) {
   const i18n = createI18n({ messages: MESSAGES, locale: DEFAULT_LOCALE });
