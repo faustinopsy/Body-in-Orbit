@@ -24,7 +24,7 @@ export async function createApp(root, services) {
   const store = createStore({ ...INITIAL_STATE, locale: DEFAULT_LOCALE });
   const app = { store, i18n, services, t: i18n.t };
   app.commands = createCommands(app);
-
+  app.services.fullscreen?.onChange(app.commands.syncFullscreen);
   const shell = createShell(app);
   root.replaceChildren(shell.element);
   store.subscribe((state) => {

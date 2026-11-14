@@ -10,4 +10,6 @@ export default {
   'theme.toggle': 'Toggle theme',
   'theme.light': 'Light theme',
   'theme.dark': 'Dark theme',
+'fullscreen.enter': 'Full screen',
+  'fullscreen.exit': 'Exit full screen',
 };

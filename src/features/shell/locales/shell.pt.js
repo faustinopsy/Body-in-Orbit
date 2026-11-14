@@ -10,4 +10,6 @@ export default {
   'theme.toggle': 'Alternar tema',
   'theme.light': 'Tema claro',
   'theme.dark': 'Tema escuro',
+  'fullscreen.enter': 'Tela cheia',
+  'fullscreen.exit': 'Sair da tela cheia',
 };
