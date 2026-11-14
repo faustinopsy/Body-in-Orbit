@@ -10,10 +10,12 @@ import { selectRegion } from './commands/selectRegion.js';
 import { selectMetric } from './commands/selectMetric.js';
 import { toggleFullscreen } from './commands/toggleFullscreen.js';
 import { syncFullscreen } from './commands/syncFullscreen.js';
+import { startDemo } from './commands/startDemo.js';
+import { startCrewSetup } from './commands/startCrewSetup.js';
+import { closeWelcome } from './commands/closeWelcome.js';
+
 export function createCommands(app) {
   return {
-    toggleFullscreen: toggleFullscreen(app),
-    syncFullscreen: syncFullscreen(app),
     goTo: goTo(app),
     setLocale: setLocale(app),
     setTheme: setTheme(app),
@@ -24,5 +26,10 @@ export function createCommands(app) {
     selectLayer: selectLayer(app),
     selectRegion: selectRegion(app),
     selectMetric: selectMetric(app),
+    toggleFullscreen: toggleFullscreen(app),
+    syncFullscreen: syncFullscreen(app),
+    startDemo: startDemo(app),
+    startCrewSetup: startCrewSetup(app),
+    closeWelcome: closeWelcome(app),
   };
 }

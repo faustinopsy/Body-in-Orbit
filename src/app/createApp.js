@@ -2,6 +2,7 @@ import { createStore } from './createStore.js';
 import { createI18n } from './createI18n.js';
 import { createCommands } from './createCommands.js';
 import { createShell } from '../features/shell/createShell.js';
+import { createWelcomeDialog } from '../features/welcome/createWelcomeDialog.js';
 import { syncDocument } from './syncDocument.js';
 import { MESSAGES } from './messages.js';
 
@@ -17,6 +18,8 @@ const INITIAL_STATE = {
   layerId: 'skeleton',
   regionId: null,
   metricId: null,
+  fullscreen: false,
+  welcomeOpen: false,
 };
 
 export async function createApp(root, services) {
@@ -25,11 +28,14 @@ export async function createApp(root, services) {
   const app = { store, i18n, services, t: i18n.t };
   app.commands = createCommands(app);
   app.services.fullscreen?.onChange(app.commands.syncFullscreen);
+
   const shell = createShell(app);
-  root.replaceChildren(shell.element);
+  const welcome = createWelcomeDialog(app);
+  root.replaceChildren(shell.element, welcome.element);
   store.subscribe((state) => {
     syncDocument(state);
     shell.update(state);
+    welcome.update(state);
   });
   await app.commands.restoreSession();
   return app;
