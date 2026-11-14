@@ -9,7 +9,7 @@ import { MESSAGES } from './messages.js';
 const INITIAL_STATE = { theme: 'light', route: 'dashboard', dataset: null, busy: false, errorKey: null };
 
 export async function createApp(root, services) {
-  const locale = detectLocale(navigator.language);
+  const locale = detectLocale(services.browserLanguage);
   const i18n = createI18n({ messages: MESSAGES, locale });
   const store = createStore({ ...INITIAL_STATE, locale });
   const app = { store, i18n, services, t: i18n.t };

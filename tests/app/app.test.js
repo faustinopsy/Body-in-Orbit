@@ -1,18 +1,13 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { createApp } from '../../src/app/createApp.js';
 import { createTestServices } from '../helpers/createTestServices.js';
 
 let root;
 
 beforeEach(() => {
-  vi.stubGlobal('navigator', { language: 'en-US' });
   document.body.innerHTML = '<div id="app"></div>';
   document.documentElement.removeAttribute('data-theme');
   root = document.querySelector('#app');
-});
-
-afterEach(() => {
-  vi.unstubAllGlobals();
 });
 
 const text = (selector) => root.querySelector(selector).textContent;

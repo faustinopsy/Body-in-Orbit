@@ -9,6 +9,7 @@ export async function createTestServices(overrides = {}) {
   counter += 1;
   const database = await openDatabase({ name: `app-test-${counter}-${Math.random()}` });
   return {
+    browserLanguage: 'en-US',
     preferences: createPreferenceRepository(database),
     datasets: createDatasetRepository(database),
     loadSample: async () => buildSampleDataset(),

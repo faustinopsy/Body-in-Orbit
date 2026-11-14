@@ -6,6 +6,7 @@ import { fetchSampleDataset } from './adapters/fetchSampleDataset.js';
 export async function createServices() {
   const database = await openDatabase();
   return {
+    browserLanguage: navigator.language,
     preferences: createPreferenceRepository(database),
     datasets: createDatasetRepository(database),
     loadSample: fetchSampleDataset,
