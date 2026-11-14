@@ -1,12 +1,16 @@
 import { createElement } from '../../ui/createElement.js';
+import { createIcon, swapIcon } from '../../ui/icons.js';
 
 export function createFullscreenToggle(app) {
-  const element = createElement('button', { type: 'button', class: 'switch__button fullscreen-toggle' });
+  const label = createElement('span', { class: 'switch__label' });
+  let icon = createIcon('maximize');
+  const element = createElement('button', { type: 'button', class: 'switch__button fullscreen-toggle' }, icon, label);
   element.hidden = !app.services.fullscreen?.isSupported();
   element.addEventListener('click', () => app.commands.toggleFullscreen());
 
   function update(state) {
-    element.textContent = app.t(state.fullscreen ? 'fullscreen.exit' : 'fullscreen.enter');
+    icon = swapIcon(icon, state.fullscreen ? 'minimize' : 'maximize');
+    label.textContent = app.t(state.fullscreen ? 'fullscreen.exit' : 'fullscreen.enter');
     element.setAttribute('aria-pressed', String(state.fullscreen));
   }
 

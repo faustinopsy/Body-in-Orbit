@@ -43,7 +43,9 @@
     stroke: var(--avatar-outline);
     stroke-width: 3.2;
   }
-
+  .avatar__body--flat {
+    fill: var(--avatar-skin);
+  }
   .avatar__region {
     cursor: pointer;
     outline: none;

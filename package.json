@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "idb": "8.0.4",
+    "lucide": "^1.73.0",
     "three": "0.186.1"
   },
   "devDependencies": {

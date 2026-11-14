@@ -33,3 +33,45 @@
     min-height: 1.5em;
   }
 }
+
+
+@layer ui {
+  .icon {
+    width: 1.15em;
+    height: 1.15em;
+    flex-shrink: 0;
+  }
+
+  .choices {
+    display: grid;
+    gap: var(--space-2);
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  }
+
+  .choice {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    text-align: left;
+  }
+
+  .choice[aria-pressed='true'] {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+  }
+
+  .choice__text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .choice__detail {
+    font-size: 0.8rem;
+    opacity: 0.85;
+  }
+
+  .choice__detail[hidden] {
+    display: none;
+  }
+}

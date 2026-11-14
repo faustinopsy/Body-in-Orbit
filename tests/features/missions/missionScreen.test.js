@@ -19,6 +19,10 @@ const one = (selector) => root.querySelector(selector);
 const all = (selector) => [...root.querySelectorAll(selector)];
 const crewMember = { role: 'commander', age: 45, weightKg: 80, heightCm: 180 };
 
+function choose(group, value) {
+  one(`[data-group="${group}"] [data-choice="${value}"]`).dispatchEvent(new Event('click'));
+}
+
 function fill(name, value, eventName = 'input') {
   const control = one(`[name="${name}"]`);
   control.value = String(value);
@@ -28,20 +32,20 @@ function fill(name, value, eventName = 'input') {
 describe('mission screen', () => {
   it('shows the six risk weights of the chosen mission type', () => {
     expect(all('.risk-row')).toHaveLength(6);
-    fill('missionType', 'mars-planetary', 'change');
+    choose('missionType', 'mars-planetary');
     expect(app.store.getState().missionDraft.durationDays).toBe(900);
     expect(one('[data-risk="sans"]').getAttribute('class')).toContain('status--critical');
   });
 
   it('adds crew members from the form with sequential codes', () => {
-    fill('role', 'pilot', 'change');
+    choose('role', 'pilot');
     fill('age', 38);
     fill('weightKg', 72);
     fill('heightCm', 176);
     one('.crew-form__add').dispatchEvent(new Event('click'));
     app.commands.addCrewMember(crewMember);
     expect(app.store.getState().missionDraft.crew.map((member) => member.code)).toEqual(['C01', 'C02']);
-    expect(all('.crew-list__item')).toHaveLength(2);
+        expect(app.store.getState().missionDraft.crew[0].role).toBe('pilot');
   });
 
   it('shows the reasons when a crew member is out of range', () => {

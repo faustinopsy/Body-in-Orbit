@@ -22,7 +22,7 @@ describe('app shell', () => {
   it('renders the title and the three navigation buttons', async () => {
     await startEnglishApp();
     expect(text('.shell__title')).toBe('Body in Orbit');
-        expect(root.querySelectorAll('.nav__button')).toHaveLength(4);
+        expect(root.querySelectorAll('.nav__button')).toHaveLength(5);
   });
 
   it('switches language and remembers it', async () => {

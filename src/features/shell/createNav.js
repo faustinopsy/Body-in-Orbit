@@ -1,20 +1,30 @@
 import { createElement } from '../../ui/createElement.js';
+import { createIcon } from '../../ui/icons.js';
 import { ROUTES } from '../../app/routes.js';
 
+const ROUTE_ICONS = {
+  dashboard: 'layout-dashboard',
+  mission: 'rocket',
+  today: 'calendar-days',
+  data: 'database',
+  help: 'circle-help',
+};
+
+function createButton(app, route) {
+  const label = createElement('span', { class: 'nav__label' });
+  const button = createElement('button', { type: 'button', class: 'nav__button', 'data-route': route }, createIcon(ROUTE_ICONS[route]), label);
+  button.addEventListener('click', () => app.commands.goTo(route));
+  return { route, button, label };
+}
+
 export function createNav(app) {
-  const element = createElement('nav', { class: 'nav' });
-  const buttons = ROUTES.map((route) => {
-    const button = createElement('button', { type: 'button', class: 'nav__button', 'data-route': route });
-    button.addEventListener('click', () => app.commands.goTo(route));
-    return button;
-  });
-  element.append(...buttons);
+  const buttons = ROUTES.map((route) => createButton(app, route));
+  const element = createElement('nav', { class: 'nav' }, ...buttons.map((item) => item.button));
 
   function update(state) {
     element.setAttribute('aria-label', app.t('nav.label'));
-    buttons.forEach((button) => {
-      const route = button.dataset.route;
-      button.textContent = app.t(`nav.${route}`);
+    buttons.forEach(({ route, button, label }) => {
+      label.textContent = app.t(`nav.${route}`);
       button.setAttribute('aria-current', route === state.route ? 'page' : 'false');
     });
   }

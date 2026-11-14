@@ -20,6 +20,9 @@
     align-items: end;
   }
 
+  .crew-form__roles {
+    grid-column: 1 / -1;
+  }
   .form__field {
     display: flex;
     flex-direction: column;
