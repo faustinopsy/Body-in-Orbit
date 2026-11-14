@@ -1,18 +1,23 @@
 import { initialView } from '../initialView.js';
+import { validateDataset } from '../../domain/dataset/validateDataset.js';
 
-export const restoreSession = (app) => async () => {
-  const { preferences, datasets } = app.services;
-  const locale = await preferences.get('locale', app.i18n.getLocale());
-  const theme = await preferences.get('theme', 'light');
+async function loadSavedDataset({ preferences, datasets }) {
   const lastId = await preferences.get('lastDatasetId', null);
   const saved = lastId === null ? null : await datasets.get(lastId);
+  return saved && validateDataset(saved.data).length === 0 ? saved.data : null;
+}
+
+export const restoreSession = (app) => async () => {
+  const { preferences } = app.services;
+  const locale = await preferences.get('locale', app.i18n.getLocale());
+  const theme = await preferences.get('theme', 'light');
+  const dataset = await loadSavedDataset(app.services);
   app.i18n.setLocale(locale);
-  const view = saved ? initialView(saved.data) : {};
   app.store.update({
     locale: app.i18n.getLocale(),
     theme,
-    dataset: saved ? saved.data : null,
-    welcomeOpen: !saved,
-    ...view,
+    dataset,
+    welcomeOpen: !dataset,
+    ...(dataset ? initialView(dataset) : {}),
   });
 };
