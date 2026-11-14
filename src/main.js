@@ -1,9 +1,3 @@
-export function createApp(root) {
-  const title = document.createElement('h1');
-  title.textContent = 'Corpo em Órbita';
-  
-  root.replaceChildren(title);
-  return { root };
-}
+import { createApp } from './app/createApp.js';
 
-createApp(document.getElementById('app'));  
+createApp(document.querySelector('#app'));
