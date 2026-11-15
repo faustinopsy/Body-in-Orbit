@@ -35,6 +35,25 @@ export function createFakeOllama(reply = () => '{}') {
   };
 }
 
+export function createFakeHeartSensor({ supported = true, simulated = false, failWith = null } = {}) {
+  const sensor = { time: 0, handlers: null, connects: 0, disconnects: 0, simulated };
+  sensor.supported = () => supported;
+  sensor.now = () => sensor.time;
+  sensor.connect = async (handlers) => {
+    sensor.connects += 1;
+    if (failWith) throw Object.assign(new Error(failWith), { code: failWith });
+    sensor.handlers = handlers;
+    return { name: 'Fake strap' };
+  };
+  sensor.disconnect = () => {
+    sensor.disconnects += 1;
+    sensor.handlers = null;
+  };
+  sensor.emit = (bpm, contact = 'yes') => sensor.handlers?.onReading({ bpm, contact });
+  sensor.lose = () => sensor.handlers?.onLost();
+  return sensor;
+}
+
 export async function createTestServices(overrides = {}) {
   counter += 1;
   const database = await openDatabase({ name: `app-test-${counter}-${Math.random()}` });
@@ -50,6 +69,8 @@ export async function createTestServices(overrides = {}) {
     session: createMemorySession(),
     readImage: async (file) => file,
     ollama: createFakeOllama(),
+    heartSensor: createFakeHeartSensor(),
+    demoHeartSensor: createFakeHeartSensor({ simulated: true }),
     loadSample: async () => buildSampleDataset(),
     downloads,
     download: (name, text) => downloads.push({ name, text }),

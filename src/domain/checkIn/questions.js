@@ -4,7 +4,7 @@ export const QUESTIONS = [
   { id: 'sleepHours', group: 'sleep', metricId: 'sleep.hours', type: 'step', min: 0, max: 12, step: 0.5, initial: 7, unit: 'h' },
   { id: 'sleepQuality', group: 'sleep', metricId: 'sleep.quality', type: 'options', options: [1, 2, 3, 4, 5] },
   { id: 'disturbances', group: 'sleep', metricId: null, type: 'multiple', options: DISTURBANCES },
-  { id: 'restingHeartRate', group: 'heart', metricId: 'cardio.restingHeartRate', type: 'step', min: 40, max: 120, step: 1, initial: 60, unit: 'bpm' },
+  { id: 'restingHeartRate', group: 'heart', metricId: 'cardio.restingHeartRate', type: 'step', min: 40, max: 120, step: 1, initial: 60, unit: 'bpm', sensor: 'heartRate' },
 ];
 
 export const CHECK_IN_GROUPS = ['sleep', 'heart'];

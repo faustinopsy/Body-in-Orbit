@@ -7,6 +7,7 @@ import { createAccessDialog } from '../features/access/createAccessDialog.js';
 import { syncDocument } from './syncDocument.js';
 import { MESSAGES } from './messages.js';
 import { createMissionDraft } from '../domain/missions/validateMission.js';
+import { HEART_IDLE } from './heartSession.js';
 
 const DEFAULT_LOCALE = 'en';
 const INITIAL_STATE = {
@@ -32,6 +33,7 @@ const INITIAL_STATE = {
   aiSettings: { enabled: false, model: 'llama3.2' },
   aiTest: { status: 'idle', models: [] },
   aiRun: { status: 'idle' },
+  heartSensor: HEART_IDLE,
   busy: false,
   errorKey: null,
   crewId: null,

@@ -12,6 +12,8 @@ import { createPasswordHasher } from './adapters/passwordHasher.js';
 import { createSessionStore } from './adapters/sessionStore.js';
 import { readImageFile } from './adapters/readImageFile.js';
 import { createOllamaClient } from './adapters/ollamaClient.js';
+import { createBluetoothHeartSensor } from './adapters/bluetoothHeartSensor.js';
+import { createSimulatedHeartSensor } from './adapters/simulatedHeartSensor.js';
 
 export async function createServices() {
   const database = await openDatabase();
@@ -26,6 +28,8 @@ export async function createServices() {
     session: createSessionStore(),
     readImage: readImageFile,
     ollama: createOllamaClient(),
+    heartSensor: createBluetoothHeartSensor(),
+    demoHeartSensor: createSimulatedHeartSensor(),
     loadSample: fetchSampleDataset,
     fullscreen: createFullscreen(),
     download: downloadFile,

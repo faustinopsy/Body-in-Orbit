@@ -31,6 +31,7 @@ import { createAdmin, signIn, signInDemo, signOut } from './commands/access.js';
 import { setCrewPassword } from './commands/crewPassword.js';
 import { addCapsuleItem, removeCapsuleItem, setUnlockEvery, setTodayTab, dismissReveal } from './commands/capsule.js';
 import { setAiSettings, testOnboardAi, askOnboardAi } from './commands/onboardAi.js';
+import { connectHeartSensor, startHeartMeasurement, cancelHeartMeasurement, useHeartReading, disconnectHeartSensor } from './commands/heartSensor.js';
 
 export function createCommands(app) {
   return {
@@ -81,5 +82,10 @@ export function createCommands(app) {
     setAiSettings: setAiSettings(app),
     testOnboardAi: testOnboardAi(app),
     askOnboardAi: askOnboardAi(app),
+    connectHeartSensor: connectHeartSensor(app),
+    startHeartMeasurement: startHeartMeasurement(app),
+    cancelHeartMeasurement: cancelHeartMeasurement(app),
+    useHeartReading: useHeartReading(app),
+    disconnectHeartSensor: disconnectHeartSensor(app),
   };
 }
