@@ -1,6 +1,7 @@
 import { createElement } from '../../ui/createElement.js';
 import { checkInOf } from '../../domain/checkIn/applyCheckIn.js';
 import { todayOf } from '../../domain/missionDay.js';
+import { visibleCrew } from '../../domain/access/permissions.js';
 
 function createItem(app, crewId, done) {
   const status = createElement('span', { class: 'day-list__status' }, app.t(done ? 'today.done' : 'today.pending'));
@@ -17,7 +18,7 @@ export function createDayList(app) {
   function update(state) {
     const day = todayOf(state.dataset);
     title.textContent = app.t('today.list', { day });
-    list.replaceChildren(...state.dataset.crew.map(({ id }) => {
+    list.replaceChildren(...visibleCrew(state.user, state.dataset.crew).map(({ id }) => {
       const item = createItem(app, id, Boolean(checkInOf(state.dataset, id, day)));
       item.firstChild.setAttribute('aria-pressed', String(id === state.crewId));
       return item;

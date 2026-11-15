@@ -39,4 +39,8 @@ export default {
   'today.close.last': 'Este es el último día de la misión.',
   'today.closed': 'Comenzó el día {day}.',
   'today.notice': 'Estas escalas ayudan a la tripulación a seguir sus propios datos. No fueron validadas científicamente y no son una evaluación médica.',
+    'today.tabs': 'Secciones del día',
+  'today.tab.checkIn': 'Cuestionario del día',
+  'today.tab.capsule': 'Mi cápsula',
+  'today.introCrew': 'Responde las preguntas sobre la última noche y guarda. Cada algunos días respondidos se abre un ítem nuevo de tu cápsula de la misión.',
 };

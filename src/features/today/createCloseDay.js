@@ -1,5 +1,6 @@
 import { createElement } from '../../ui/createElement.js';
 import { todayOf } from '../../domain/missionDay.js';
+import { isAdmin } from '../../domain/access/permissions.js';
 
 export function createCloseDay(app) {
   const title = createElement('h3', { class: 'close-day__title' });
@@ -9,6 +10,7 @@ export function createCloseDay(app) {
   button.addEventListener('click', () => app.commands.closeDay());
 
   function update(state) {
+    element.hidden = !isAdmin(state.user);
     const day = todayOf(state.dataset);
     const last = day >= state.dataset.missionDays;
     title.textContent = app.t('today.close.title');

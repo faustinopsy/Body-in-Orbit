@@ -153,4 +153,12 @@
       grid-template-columns: minmax(0, 1fr);
     }
   }
+    .today__content {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .today__content > .tabs {
+    justify-self: start;
+  }
 }

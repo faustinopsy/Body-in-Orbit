@@ -3,10 +3,25 @@ import { createPreferenceRepository } from '../../src/data/preferenceRepository.
 import { createDatasetRepository } from '../../src/data/datasetRepository.js';
 import { createMissionRepository } from '../../src/data/missionRepository.js';
 import { createBackupRepository } from '../../src/data/backupRepository.js';
+import { createAccountRepository } from '../../src/data/accountRepository.js';
+import { createCapsuleRepository } from '../../src/data/capsuleRepository.js';
+import { createPasswordHasher } from '../../src/app/adapters/passwordHasher.js';
 import { buildSampleDataset } from '../../src/domain/dataset/simulate.js';
 
 let counter = 0;
 
+export function createMemorySession(user = { role: 'admin' }) {
+  let saved = user;
+  return {
+    load: () => saved,
+    save: (next) => {
+      saved = next;
+    },
+    clear: () => {
+      saved = null;
+    },
+  };
+}
 export async function createTestServices(overrides = {}) {
   counter += 1;
   const database = await openDatabase({ name: `app-test-${counter}-${Math.random()}` });
@@ -16,6 +31,11 @@ export async function createTestServices(overrides = {}) {
     datasets: createDatasetRepository(database),
     missions: createMissionRepository(database),
     backup: createBackupRepository(database),
+    accounts: createAccountRepository(database),
+    capsule: createCapsuleRepository(database),
+    hasher: createPasswordHasher(1000),
+    session: createMemorySession(),
+    readImage: async (file) => file,
     loadSample: async () => buildSampleDataset(),
     downloads,
     download: (name, text) => downloads.push({ name, text }),

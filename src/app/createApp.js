@@ -3,6 +3,7 @@ import { createI18n } from './createI18n.js';
 import { createCommands } from './createCommands.js';
 import { createShell } from '../features/shell/createShell.js';
 import { createWelcomeDialog } from '../features/welcome/createWelcomeDialog.js';
+import { createAccessDialog } from '../features/access/createAccessDialog.js';
 import { syncDocument } from './syncDocument.js';
 import { MESSAGES } from './messages.js';
 import { createMissionDraft } from '../domain/missions/validateMission.js';
@@ -17,6 +18,17 @@ const INITIAL_STATE = {
   checkInDraft: null,
   todayErrors: [],
   todayMessage: null,
+  todayTab: 'checkIn',
+  user: null,
+  hasAdmin: false,
+  crewAccounts: [],
+  accessError: null,
+  accessMessage: null,
+  passwordMessage: null,
+  capsule: [],
+  capsuleReveal: null,
+  capsuleErrors: [],
+  capsuleMessage: null,
   busy: false,
   errorKey: null,
   crewId: null,
@@ -47,11 +59,13 @@ export async function createApp(root, services) {
 
   const shell = createShell(app);
   const welcome = createWelcomeDialog(app);
-  root.replaceChildren(shell.element, welcome.element);
+  const access = createAccessDialog(app);
+  root.replaceChildren(shell.element, welcome.element, access.element);
   store.subscribe((state) => {
     syncDocument(state);
     shell.update(state);
     welcome.update(state);
+    access.update(state);
   });
   await app.commands.restoreSession();
   return app;

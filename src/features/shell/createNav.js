@@ -1,6 +1,7 @@
 import { createElement } from '../../ui/createElement.js';
 import { createIcon } from '../../ui/icons.js';
 import { ROUTES } from '../../app/routes.js';
+import { canOpen } from '../../domain/access/permissions.js';
 
 const ROUTE_ICONS = {
   dashboard: 'layout-dashboard',
@@ -25,6 +26,8 @@ export function createNav(app) {
     buttons.forEach(({ route, button, label }) => {
       label.textContent = app.t(`nav.${route}`);
       button.title = label.textContent;
+      button.disabled = !canOpen(state.user, route);
+      button.hidden = !canOpen(state.user, route);
       button.setAttribute('aria-current', route === state.route ? 'page' : 'false');
     });
   }

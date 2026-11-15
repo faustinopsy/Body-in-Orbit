@@ -39,4 +39,8 @@ export default {
   'today.close.last': 'This is the last day of the mission.',
   'today.closed': 'Day {day} started.',
   'today.notice': 'These scales help the crew follow their own data. They were not validated scientifically and are not a medical evaluation.',
+    'today.tabs': 'Today sections',
+  'today.tab.checkIn': 'Daily check-in',
+  'today.tab.capsule': 'My capsule',
+  'today.introCrew': 'Answer the questions about the last night and save. Every few answered days a new item of your mission capsule opens.',
 };

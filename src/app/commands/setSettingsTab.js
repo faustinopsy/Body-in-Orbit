@@ -1,7 +1,12 @@
-export const SETTINGS_TABS = ['mission', 'crew', 'data'];
+export const SETTINGS_TABS = ['mission', 'crew', 'access', 'capsule', 'data'];
+
+export function settingsTabLocked(state, tab) {
+  if (tab === 'crew') return !state.missionConfirmed;
+  return (tab === 'access' || tab === 'capsule') && !state.dataset;
+}
 
 export const setSettingsTab = (app) => (tab) => {
-  const { missionConfirmed } = app.store.getState();
-  if (!SETTINGS_TABS.includes(tab) || (tab === 'crew' && !missionConfirmed)) return;
-  app.store.update({ settingsTab: tab, missionErrors: [], errorKey: null, dataMessage: null });
+  const state = app.store.getState();
+  if (!SETTINGS_TABS.includes(tab) || settingsTabLocked(state, tab)) return;
+  app.store.update({ settingsTab: tab, missionErrors: [], errorKey: null, dataMessage: null, capsuleErrors: [], capsuleMessage: null, passwordMessage: null });
 };

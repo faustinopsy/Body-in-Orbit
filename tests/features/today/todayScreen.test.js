@@ -30,7 +30,7 @@ describe('today', () => {
   it('asks to open a mission when there is none', () => {
     app.commands.goTo('today');
     expect(one('[data-screen="today"] .screen__text').textContent).toContain('Open the demo mission');
-    expect(one('.today').hidden).toBe(true);
+    expect(one('.today__content').hidden).toBe(true);
   });
 
   it('marks the missing answer and does not save', async () => {
@@ -56,7 +56,7 @@ describe('today', () => {
     expect(one('[data-crew="C01"]').dataset.done).toBe('true');
     expect(one('[data-crew="C02"]').dataset.done).toBe('false');
     const saved = (await services.datasets.list()).find((record) => record.id === datasetId);
-    expect(saved.data.checkIns[0].answers.disturbances).toEqual(['noise']);
+    expect(saved.data.checkIns.find((entry) => entry.crewId === 'C01' && entry.day === 180).answers.disturbances).toEqual(['noise']);
     expect(one('.close-day__button').hidden).toBe(true);
   });
 

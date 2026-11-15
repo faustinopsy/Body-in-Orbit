@@ -2,7 +2,8 @@ import { validateDataset } from '../dataset/validateDataset.js';
 
 export const BACKUP_FORMAT = 'orbit-crew-health-backup';
 export const BACKUP_VERSION = 1;
-export const BACKUP_STORES = ['preferences', 'datasets', 'missions'];
+export const BACKUP_STORES = ['preferences', 'datasets', 'missions', 'accounts', 'capsule'];
+export const REQUIRED_STORES = ['preferences', 'datasets', 'missions'];
 
 export function buildBackup(content, createdAt) {
   return { format: BACKUP_FORMAT, version: BACKUP_VERSION, createdAt, ...content };
@@ -10,8 +11,12 @@ export function buildBackup(content, createdAt) {
 
 const isRecord = (value) => typeof value === 'object' && value !== null;
 
+const validStore = (records) => Array.isArray(records) && records.every(isRecord);
+
 function storeErrors(backup) {
-  return BACKUP_STORES.filter((store) => !Array.isArray(backup[store]) || !backup[store].every(isRecord));
+  const missing = REQUIRED_STORES.filter((store) => !validStore(backup[store]));
+  const broken = BACKUP_STORES.filter((store) => store in backup && !validStore(backup[store]));
+  return [...new Set([...missing, ...broken])];
 }
 
 function datasetErrors(backup) {

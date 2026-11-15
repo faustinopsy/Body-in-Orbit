@@ -2,6 +2,8 @@ import { applyCheckIn, advanceDay } from '../../domain/checkIn/applyCheckIn.js';
 import { validateAnswers } from '../../domain/checkIn/questions.js';
 import { todayOf } from '../../domain/missionDay.js';
 import { currentAnswers } from '../checkInDraft.js';
+import { newlyOpened } from '../../domain/capsule/unlockRules.js';
+import { isAdmin } from '../../domain/access/permissions.js';
 
 async function persist(app, data) {
   const { datasetId } = app.store.getState();
@@ -24,12 +26,19 @@ export const saveCheckIn = (app) => async () => {
   const day = todayOf(state.dataset);
   const data = applyCheckIn(state.dataset, { crewId: state.crewId, day, answers });
   await persist(app, data);
-  app.store.update({ dataset: data, checkInDraft: null, todayErrors: [], todayMessage: { key: 'today.saved', params: { crew: state.crewId, day } } });
+  const opened = newlyOpened(state.capsule, state.dataset, data, state.crewId);
+  app.store.update({
+    dataset: data,
+    checkInDraft: null,
+    todayErrors: [],
+    todayMessage: { key: 'today.saved', params: { crew: state.crewId, day } },
+    capsuleReveal: opened?.id ?? null,
+  });
 };
 
 export const closeDay = (app) => async () => {
-  const { dataset } = app.store.getState();
-  if (!dataset || todayOf(dataset) >= dataset.missionDays) return;
+  const { dataset, user } = app.store.getState();
+  if (!isAdmin(user) || !dataset || todayOf(dataset) >= dataset.missionDays) return;
   const data = advanceDay(dataset);
   await persist(app, data);
   app.store.update({ dataset: data, day: data.today, checkInDraft: null, todayErrors: [], todayMessage: { key: 'today.closed', params: { day: data.today } } });

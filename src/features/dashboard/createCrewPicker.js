@@ -1,4 +1,5 @@
 import { createElement } from '../../ui/createElement.js';
+import { canSeeCrew } from '../../domain/access/permissions.js';
 import '../../ui/chip.css';
 
 function createTab(app, id) {
@@ -29,6 +30,7 @@ export function createCrewPicker(app) {
       tab.status.textContent = app.t(`status.${status}`);
       tab.button.title = `${tab.id} · ${tab.status.textContent}`;
       tab.button.setAttribute('aria-pressed', String(tab.id === state.crewId));
+      tab.button.hidden = !canSeeCrew(state.user, tab.id);
     });
   }
 

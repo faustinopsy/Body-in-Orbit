@@ -11,7 +11,7 @@ export function createBackupRepository(database) {
       BACKUP_STORES.forEach((store) => {
         const target = transaction.objectStore(store);
         target.clear();
-        content[store].forEach((record) => target.put(record));
+        (content[store] ?? []).forEach((record) => target.put(record));
       });
       await transaction.done;
     },

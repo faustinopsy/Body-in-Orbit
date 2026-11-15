@@ -1,6 +1,7 @@
 import { createMissionDraft, missionFieldErrors, validateMission } from '../../domain/missions/validateMission.js';
 import { buildMissionDataset } from '../../domain/missions/projectMission.js';
 import { initialView } from '../initialView.js';
+import { missionContext } from '../missionContext.js';
 
 function showErrors(app, mission, errors) {
   const tab = missionFieldErrors(mission).length > 0 ? 'mission' : app.store.getState().settingsTab;
@@ -16,10 +17,11 @@ export const saveMission = (app) => async () => {
   const data = buildMissionDataset(mission);
   const id = await app.services.datasets.add({ name: data.name, data });
   await app.services.preferences.set('lastDatasetId', id);
+  const context = await missionContext(app.services, { datasetId: id, dataset: data, user: app.store.getState().user });
   app.store.update({
     dataset: data,
-    datasetId: id,
     ...initialView(data),
+    ...context,
     route: 'dashboard',
     missionDraft: createMissionDraft(),
     missionErrors: [],

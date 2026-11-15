@@ -1,14 +1,16 @@
 import { createElement } from '../../ui/createElement.js';
 import { createTabs } from '../../ui/createTabs.js';
-import { SETTINGS_TABS } from '../../app/commands/setSettingsTab.js';
+import { SETTINGS_TABS, settingsTabLocked } from '../../app/commands/setSettingsTab.js';
 import { createMissionStep } from '../missions/createMissionStep.js';
 import { createCrewStep } from '../missions/createCrewStep.js';
 import { createDataPanel } from '../datasets/createDataPanel.js';
+import { createCrewAccessPanel } from '../access/createCrewAccessPanel.js';
+import { createCapsuleSettings } from '../capsule/createCapsuleSettings.js';
 import '../missions/missions.css';
 
 function tabLabel(app, state, tab) {
   if (tab === 'crew') return app.t('crew.legend', { count: state.missionDraft.crew.length });
-  return tab === 'mission' ? app.t('mission.legend') : app.t('settings.tab.data');
+  return tab === 'mission' ? app.t('mission.legend') : app.t(`settings.tab.${tab}`);
 }
 
 export function createSettingsScreen(app) {
@@ -17,7 +19,7 @@ export function createSettingsScreen(app) {
   const tabs = createTabs({ name: 'settingsTab', ids: SETTINGS_TABS, onSelect: (tab) => app.commands.setSettingsTab(tab) });
   const hint = createElement('p', { class: 'screen__text screen__text--soft mission-hint' });
   const errors = createElement('ul', { class: 'screen__error mission-errors', role: 'alert' });
-  const panels = { mission: createMissionStep(app), crew: createCrewStep(app), data: createDataPanel(app) };
+  const panels = { mission: createMissionStep(app), crew: createCrewStep(app), access: createCrewAccessPanel(app), capsule: createCapsuleSettings(app), data: createDataPanel(app) };
   const element = createElement('section', { class: 'screen', 'data-screen': 'settings' }, title, intro, tabs.element, hint, ...Object.values(panels).map((panel) => panel.element), errors);
 
   function update(state) {
@@ -29,9 +31,9 @@ export function createSettingsScreen(app) {
       selected: state.settingsTab,
       label: app.t('settings.tabs'),
       labelOf: (tab) => tabLabel(app, state, tab),
-      disabled: (tab) => tab === 'crew' && !state.missionConfirmed,
+      disabled: (tab) => settingsTabLocked(state, tab),
     });
-    errors.hidden = state.settingsTab === 'data';
+    errors.hidden = !['mission', 'crew'].includes(state.settingsTab);
     errors.replaceChildren(...state.missionErrors.map((code) => createElement('li', {}, app.t(`mission.error.${code}`))));
     Object.entries(panels).forEach(([tab, panel]) => {
       panel.element.hidden = tab !== state.settingsTab;

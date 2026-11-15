@@ -24,6 +24,9 @@ import { setSettingsTab } from './commands/setSettingsTab.js';
 import { saveBackup, restoreBackup } from './commands/backup.js';
 import { sendDownlink } from './commands/sendDownlink.js';
 import { updateCheckIn, saveCheckIn, closeDay } from './commands/checkIn.js';
+import { createAdmin, signIn, signInDemo, signOut } from './commands/access.js';
+import { setCrewPassword } from './commands/crewPassword.js';
+import { addCapsuleItem, removeCapsuleItem, setUnlockEvery, setTodayTab, dismissReveal } from './commands/capsule.js';
 import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
 import { togglePlayback, stepPlayback } from './commands/playback.js';
 import { setDetailTab } from './commands/setDetailTab.js';
@@ -59,6 +62,16 @@ export function createCommands(app) {
     updateCheckIn: updateCheckIn(app),
     saveCheckIn: saveCheckIn(app),
     closeDay: closeDay(app),
+    createAdmin: createAdmin(app),
+    signIn: signIn(app),
+    signInDemo: signInDemo(app),
+    signOut: signOut(app),
+    setCrewPassword: setCrewPassword(app),
+    addCapsuleItem: addCapsuleItem(app),
+    removeCapsuleItem: removeCapsuleItem(app),
+    setUnlockEvery: setUnlockEvery(app),
+    setTodayTab: setTodayTab(app),
+    dismissReveal: dismissReveal(app),
     setHelpTab: setHelpTab(app),
     setHelpRisk: setHelpRisk(app),
     togglePlayback: togglePlayback(app),
