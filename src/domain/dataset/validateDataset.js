@@ -13,6 +13,12 @@ function checkHeader(data) {
   return errors;
 }
 
+function checkToday(data) {
+  if (data.today === undefined) return [];
+  const valid = Number.isInteger(data.today) && data.today >= 1 && data.today <= data.missionDays;
+  return valid ? [] : [{ code: 'today' }];
+}
+
 function isValidSeries(values, days) {
   return Array.isArray(values) && values.length === days && values.every(Number.isFinite);
 }
@@ -32,6 +38,6 @@ function checkSeries(data) {
 
 export function validateDataset(data) {
   if (typeof data !== 'object' || data === null) return [{ code: 'notObject' }];
-  const headerErrors = checkHeader(data);
+  const headerErrors = [...checkHeader(data), ...checkToday(data)];
   return headerErrors.length > 0 ? headerErrors : checkSeries(data);
 }

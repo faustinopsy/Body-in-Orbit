@@ -20,6 +20,8 @@ const INITIAL_STATE = {
   layerId: 'skeleton',
   regionId: null,
   metricId: null,
+  playing: false,
+  detailTab: 'chart',
   fullscreen: false,
   welcomeOpen: false,
   missionDraft: createMissionDraft(),

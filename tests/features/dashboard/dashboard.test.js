@@ -61,11 +61,12 @@ describe('dashboard', () => {
     expect(one('.timeline__label').textContent).toBe('Mission day 60 of 180');
   });
 
-  it('draws the chart of the selected metric', () => {
-    expect(one('.chart__title').textContent).toContain('Spine bone density');
+  it('draws the chart of the selected metric up to today', () => {
+    expect(one('.chart__svg').getAttribute('aria-label')).toContain('Spine bone density for C01');
     expect(one('.chart__series').getAttribute('points').split(' ')).toHaveLength(180);
+    expect(one('.chart__projected')).toBeNull();
     app.commands.setDay(30);
-    expect(one('.chart__series').getAttribute('points').split(' ')).toHaveLength(30);
+    expect(one('.chart__svg').getAttribute('aria-label')).toContain('on day 30');
   });
 
   it('describes the selected region in words, not only in colour', () => {

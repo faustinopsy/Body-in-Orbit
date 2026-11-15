@@ -1,0 +1,92 @@
+@layer features {
+  .timeline__top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .timeline__play {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 7.5rem;
+  }
+
+  .timeline__play[aria-pressed='true'] {
+    border-color: var(--color-accent);
+  }
+
+  .timeline__reading {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
+    white-space: nowrap;
+  }
+
+  .timeline__day {
+    font: 700 26px/1 var(--font-display);
+  }
+
+  .timeline__of {
+    font: 500 13px/1 var(--font-data);
+    color: var(--color-text-soft);
+  }
+
+  .timeline__phase {
+    padding: 3px 8px;
+    border: 1px solid var(--color-line);
+    border-radius: 6px;
+    font: 600 10.5px/1.2 var(--font-data);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-text-2);
+  }
+
+  .timeline__phase[data-phase='projection'] {
+    border-style: dashed;
+    color: var(--color-accent);
+  }
+
+  .timeline__track {
+    position: relative;
+  }
+
+  .timeline__track::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    bottom: 2px;
+    left: var(--today, 100%);
+    width: 2px;
+    margin-left: -1px;
+    background: var(--color-text-soft);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .timeline__input {
+    accent-color: var(--color-accent);
+  }
+
+  .timeline__marks {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .timeline__mark {
+    padding: 0;
+    border: 0;
+    background: none;
+    font: 500 11.5px/1.4 var(--font-data);
+    color: var(--color-text-soft);
+  }
+
+  .timeline__mark[data-mark='today'] {
+    text-decoration: underline;
+  }
+
+  .timeline__mark:hover {
+    color: var(--color-text);
+  }
+}

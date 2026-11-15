@@ -22,6 +22,8 @@ import { changeZoom } from './commands/changeZoom.js';
 import { confirmMission } from './commands/confirmMission.js';
 import { setMissionStep } from './commands/setMissionStep.js';
 import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
+import { togglePlayback, stepPlayback } from './commands/playback.js';
+import { setDetailTab } from './commands/setDetailTab.js';
 
 export function createCommands(app) {
   return {
@@ -50,5 +52,8 @@ export function createCommands(app) {
     setMissionStep: setMissionStep(app),
     setHelpTab: setHelpTab(app),
     setHelpRisk: setHelpRisk(app),
+    togglePlayback: togglePlayback(app),
+    stepPlayback: stepPlayback(app),
+    setDetailTab: setDetailTab(app),
   };
 }

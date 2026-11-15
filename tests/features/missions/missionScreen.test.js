@@ -89,7 +89,7 @@ describe('mission screen', () => {
     app.commands.addCrewMember(crewMember);
     await app.commands.saveMission();
     const state = app.store.getState();
-    expect(state).toMatchObject({ route: 'dashboard', crewId: 'C01', day: 900, missionConfirmed: false, missionStep: 'mission' });
+        expect(state).toMatchObject({ route: 'dashboard', crewId: 'C01', day: 1, missionConfirmed: false, missionStep: 'mission' });
     expect(state.dataset.missionTypeId).toBe('mars-planetary');
     expect(await services.missions.list()).toHaveLength(1);
   });

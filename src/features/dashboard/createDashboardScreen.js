@@ -5,8 +5,9 @@ import { createTimeline } from './createTimeline.js';
 import { createLayerRail } from './createLayerRail.js';
 import { createLayerHeader } from './createLayerHeader.js';
 import { createMetricCards } from './createMetricCards.js';
-import { createMetricChart } from './createMetricChart.js';
+import { createDetailPanel } from './createDetailPanel.js';
 import { createAvatar2D } from './createAvatar2D.js';
+import { createPlayback } from './createPlayback.js';
 import './dashboard.css';
 
 function buildView(state) {
@@ -25,32 +26,32 @@ function createParts(app) {
     timeline: createTimeline(app),
     header: createLayerHeader(app),
     cards: createMetricCards(app),
-    chart: createMetricChart(app),
+    detail: createDetailPanel(app),
   };
 }
 
-function buildBoard(parts, notice) {
+function buildBoard(parts) {
   const box = (className, ...children) => createElement('div', { class: className }, ...children);
   const stage = box('stage', box('stage__crew glass', parts.crew.element), box('stage__avatar', parts.avatar.element), box('stage__timeline glass', parts.timeline.element));
-  const middle = box('board__middle', parts.cards.element, createElement('section', { class: 'board__chart glass' }, parts.chart.element, notice));
+  const middle = box('board__middle', parts.cards.element, parts.detail.element);
   return box('board', box('board__body', parts.rail.element, stage), box('board__side', parts.header.element, middle));
 }
 
 export function createDashboardScreen(app) {
   const title = createElement('h2', { class: 'screen__title' });
   const summary = createElement('p', { class: 'screen__text' });
-  const notice = createElement('p', { class: 'dashboard__notice' });
   const parts = createParts(app);
-  const board = buildBoard(parts, notice);
+  const playback = createPlayback(app);
+  const board = buildBoard(parts);
   const element = createElement('section', { class: 'screen dashboard', 'data-screen': 'dashboard' }, title, summary, board);
 
   function update(state) {
     const { dataset } = state;
     title.textContent = app.t('dashboard.title');
-    notice.textContent = app.t('dashboard.notice');
     board.hidden = !dataset;
     element.classList.toggle('dashboard--ready', Boolean(dataset));
     [title, summary].forEach((part) => part.classList.toggle('sr-only', Boolean(dataset)));
+    playback.update(state);
     if (!dataset) {
       summary.textContent = app.t('dashboard.empty');
       return;

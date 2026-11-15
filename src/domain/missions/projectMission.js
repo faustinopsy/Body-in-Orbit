@@ -49,6 +49,7 @@ export function buildMissionDataset(mission) {
     projected: true,
     missionTypeId: type.id,
     missionDays: mission.durationDays,
+    today: 1,
     crew: mission.crew.map(({ code, role }) => ({ id: code, role })),
     series: Object.fromEntries(mission.crew.map((member) => [member.code, projectMember(type, member, mission.durationDays)])),
   };
