@@ -18,6 +18,7 @@ export const saveMission = (app) => async () => {
   await app.services.preferences.set('lastDatasetId', id);
   app.store.update({
     dataset: data,
+    datasetId: id,
     ...initialView(data),
     route: 'dashboard',
     missionDraft: createMissionDraft(),

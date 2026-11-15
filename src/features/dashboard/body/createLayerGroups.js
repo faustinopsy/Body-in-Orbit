@@ -4,7 +4,11 @@ const toElement = (shape) => createSvgElement(shape.tag, { ...shape.attrs, class
 
 function createRegionGroup(app, regionId, shapes, focusable) {
   const group = createSvgElement('g', { class: 'avatar__region', 'data-region': regionId }, ...shapes.map(toElement));
-  const choose = () => app.commands.selectRegion(regionId);
+    const choose = () => {
+    const { regionId: selected, layerId } = app.store.getState();
+    if (selected === regionId) app.commands.selectLayer(layerId);
+    else app.commands.selectRegion(regionId);
+  };
   group.addEventListener('click', choose);
   if (!focusable) return group;
   group.setAttribute('tabindex', '0');

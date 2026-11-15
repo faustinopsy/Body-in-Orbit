@@ -23,6 +23,7 @@ import { confirmMission } from './commands/confirmMission.js';
 import { setSettingsTab } from './commands/setSettingsTab.js';
 import { saveBackup, restoreBackup } from './commands/backup.js';
 import { sendDownlink } from './commands/sendDownlink.js';
+import { updateCheckIn, saveCheckIn, closeDay } from './commands/checkIn.js';
 import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
 import { togglePlayback, stepPlayback } from './commands/playback.js';
 import { setDetailTab } from './commands/setDetailTab.js';
@@ -55,6 +56,9 @@ export function createCommands(app) {
     saveBackup: saveBackup(app),
     restoreBackup: restoreBackup(app),
     sendDownlink: sendDownlink(app),
+    updateCheckIn: updateCheckIn(app),
+    saveCheckIn: saveCheckIn(app),
+    closeDay: closeDay(app),
     setHelpTab: setHelpTab(app),
     setHelpRisk: setHelpRisk(app),
     togglePlayback: togglePlayback(app),

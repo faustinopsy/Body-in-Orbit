@@ -3,6 +3,8 @@ import { createSvgElement } from '../../ui/createSvgElement.js';
 import { AVATAR_VIEW_BOX, BODY_LAYERS } from './body/bodyLayers.js';
 import { SILHOUETTE } from './body/silhouette.js';
 import { createLayerGroups } from './body/createLayerGroups.js';
+import { FULL_VIEW, focusViewBox, isZoomed } from './body/regionFocus.js';
+import { createViewBoxAnimator } from './body/animateViewBox.js';
 import './avatar.css';
 
 const SHADE_ID = 'avatar-shade';
@@ -32,12 +34,26 @@ export function createAvatar2D(app) {
     ...front,
   );
   const caption = createElement('p', { class: 'avatar__caption', 'aria-live': 'polite' });
-  const element = createElement('figure', { class: 'avatar' }, svg, caption);
+  const whole = createElement('button', { type: 'button', class: 'avatar__whole' });
+  const element = createElement('figure', { class: 'avatar' }, svg, whole, caption);
   const regions = [...svg.querySelectorAll('[data-region]')];
   const layers = [...back, ...front];
+    const animator = createViewBoxAnimator(svg, FULL_VIEW);
+  let focused = null;
+  whole.addEventListener('click', () => app.commands.selectLayer(app.store.getState().layerId));
 
+  function focusOn(regionId) {
+    const target = isZoomed(regionId) ? regionId : null;
+    whole.hidden = target === null;
+    if (target === focused) return;
+    focused = target;
+    svg.toggleAttribute('data-zoomed', target !== null);
+    animator.animateTo(focusViewBox(target));
+  }
   function update(state, view) {
     svg.setAttribute('aria-label', app.t('avatar.label'));
+    whole.textContent = app.t('avatar.whole');
+    focusOn(state.regionId);
     layers.forEach((layer) => layer.setAttribute('display', layer.dataset.layer === state.layerId ? 'inline' : 'none'));
     regions.forEach((region) => {
       const regionId = region.dataset.region;

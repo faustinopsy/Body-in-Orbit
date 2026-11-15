@@ -13,7 +13,7 @@ export const openSample = (app) => async () => {
     if (!data) return app.store.update({ busy: false, errorKey: 'data.error.invalid' });
     const id = await app.services.datasets.add({ name: data.name, data });
     await app.services.preferences.set('lastDatasetId', id);
-    app.store.update({ busy: false, dataset: data, ...initialView(data) });
+    app.store.update({ busy: false, dataset: data, datasetId: id, ...initialView(data) });
   } catch {
     app.store.update({ busy: false, errorKey: 'data.error.load' });
   }
