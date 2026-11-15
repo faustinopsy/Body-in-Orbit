@@ -43,4 +43,5 @@ export default {
   'today.tab.checkIn': 'Daily check-in',
   'today.tab.capsule': 'My capsule',
   'today.introCrew': 'Answer the questions about the last night and save. Every few answered days a new item of your mission capsule opens.',
+  'today.tab.analysis': 'Analysis of the day',
 };

@@ -1,0 +1,1 @@
+export const TODAY_TABS = ['checkIn', 'analysis', 'capsule'];

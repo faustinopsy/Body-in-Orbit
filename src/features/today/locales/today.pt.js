@@ -43,4 +43,5 @@ export default {
   'today.tab.checkIn': 'Questionário do dia',
   'today.tab.capsule': 'Minha cápsula',
   'today.introCrew': 'Responda às perguntas sobre a última noite e salve. A cada alguns dias respondidos, abre um item novo da sua cápsula da missão.',
+  'today.tab.analysis': 'Análise do dia',
 };

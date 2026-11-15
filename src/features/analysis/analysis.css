@@ -1,0 +1,82 @@
+@layer features {
+  .analysis {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-panel);
+    background: var(--color-surface);
+  }
+
+  .analysis__head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .analysis__title {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  .analysis__source {
+    justify-self: start;
+    margin: 0;
+    padding: 2px 10px;
+    border: 1px solid var(--color-line);
+    border-radius: 999px;
+    font: 600 12px/1.6 var(--font-data);
+    color: var(--color-text-2);
+  }
+
+  .analysis__headline {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .analysis__missing {
+    margin: 0;
+    padding: var(--space-2) var(--space-3);
+    border-left: 4px solid var(--status-warning);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--status-warning) 10%, transparent);
+  }
+
+  .analysis__list {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .finding {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2);
+    align-items: start;
+    padding: var(--space-2) var(--space-3);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius);
+  }
+
+  .finding .shape {
+    margin-top: 5px;
+  }
+
+  .finding__text,
+  .finding__help {
+    margin: 0;
+  }
+
+  .finding__help {
+    font-size: 12.5px;
+    color: var(--color-text-soft);
+  }
+
+  .analysis__notice {
+    margin: 0;
+    font-size: 12.5px;
+    color: var(--color-text-soft);
+  }
+}

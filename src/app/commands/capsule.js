@@ -1,7 +1,7 @@
 import { isAdmin } from '../../domain/access/permissions.js';
 import { itemErrors, itemsOf, validEvery } from '../../domain/capsule/unlockRules.js';
+import { TODAY_TABS } from '../todayTabs.js';
 
-const TODAY_TABS = ['checkIn', 'capsule'];
 
 async function reload(app, extra) {
   const { datasetId } = app.store.getState();

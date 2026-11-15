@@ -6,9 +6,11 @@ import { createDayList } from './createDayList.js';
 import { createCloseDay } from './createCloseDay.js';
 import { createCapsulePanel } from '../capsule/createCapsulePanel.js';
 import { createRevealCard } from '../capsule/createRevealCard.js';
+import { createAnalysisPanel } from '../analysis/createAnalysisPanel.js';
+import { TODAY_TABS } from '../../app/todayTabs.js';
 import './today.css';
 
-const TODAY_TABS = ['checkIn', 'capsule'];
+
 
 function introKey(state) {
   if (!state.dataset) return 'today.none';
@@ -22,10 +24,10 @@ export function createTodayScreen(app) {
   const error = createElement('p', { class: 'screen__error today-error', role: 'alert' });
   const notice = createElement('p', { class: 'screen__text screen__text--soft' });
   const tabs = createTabs({ name: 'todayTab', ids: TODAY_TABS, onSelect: (tab) => app.commands.setTodayTab(tab) });
-  const parts = [createCheckInForm(app), createDayList(app), createCloseDay(app), createCapsulePanel(app), createRevealCard(app)];
-  const [form, dayList, closeDay, capsule, reveal] = parts;
+  const parts = [createCheckInForm(app), createDayList(app), createCloseDay(app), createCapsulePanel(app), createRevealCard(app), createAnalysisPanel(app)];
+  const [form, dayList, closeDay, capsule, reveal, analysis] = parts;
   const checkIn = createElement('div', { class: 'today' }, form.element, createElement('aside', { class: 'today__side' }, dayList.element, closeDay.element));
-  const content = createElement('div', { class: 'today__content' }, reveal.element, tabs.element, checkIn, capsule.element);
+    const content = createElement('div', { class: 'today__content' }, reveal.element, tabs.element, checkIn, analysis.element, capsule.element);
   const element = createElement('section', { class: 'screen', 'data-screen': 'today' }, title, intro, message, error, content, notice);
 
   function update(state) {
@@ -41,6 +43,7 @@ export function createTodayScreen(app) {
     if (!dataset) return;
     tabs.update({ selected: state.todayTab, label: app.t('today.tabs'), labelOf: (tab) => app.t(`today.tab.${tab}`) });
     checkIn.hidden = state.todayTab !== 'checkIn';
+    analysis.element.hidden = state.todayTab !== 'analysis';
     capsule.element.hidden = state.todayTab !== 'capsule';
     parts.forEach((part) => part.update(state));
   }
