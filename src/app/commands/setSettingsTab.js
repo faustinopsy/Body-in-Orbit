@@ -1,4 +1,4 @@
-export const SETTINGS_TABS = ['mission', 'crew', 'access', 'capsule', 'data'];
+export const SETTINGS_TABS = ['mission', 'crew', 'access', 'capsule', 'onboard', 'data'];
 
 export function settingsTabLocked(state, tab) {
   if (tab === 'crew') return !state.missionConfirmed;

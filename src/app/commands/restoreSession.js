@@ -1,4 +1,5 @@
 import { initialView } from '../initialView.js';
+import { DEFAULT_AI } from './onboardAi.js';
 import { missionContext } from '../missionContext.js';
 import { validateDataset } from '../../domain/dataset/validateDataset.js';
 
@@ -13,6 +14,7 @@ export const restoreSession = (app) => async () => {
   const locale = await preferences.get('locale', app.i18n.getLocale());
   const theme = await preferences.get('theme', 'light');
   const zoom = await preferences.get('zoom', 1);
+  const aiSettings = await preferences.get('onboardAi', DEFAULT_AI);
   const saved = await loadSavedDataset(app.services);
   const dataset = saved?.data ?? null;
   const context = await missionContext(app.services, { datasetId: saved?.id ?? null, dataset, user: session.load() });
@@ -21,6 +23,7 @@ export const restoreSession = (app) => async () => {
     locale: app.i18n.getLocale(),
     theme,
     zoom,
+    aiSettings,
     dataset,
     welcomeOpen: !dataset,
     ...(dataset ? initialView(dataset) : {}),

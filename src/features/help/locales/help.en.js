@@ -12,4 +12,5 @@ export default {
   'help.tab.about': 'How it works',
   'help.tab.method': 'Timeline and AI',
   'help.pickRisk': 'Choose a body system to read about it',
+  'help.tab.onboard': 'Onboard technology',
 };

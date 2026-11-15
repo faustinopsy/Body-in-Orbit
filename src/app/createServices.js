@@ -11,6 +11,7 @@ import { downloadFile } from './adapters/downloadFile.js';
 import { createPasswordHasher } from './adapters/passwordHasher.js';
 import { createSessionStore } from './adapters/sessionStore.js';
 import { readImageFile } from './adapters/readImageFile.js';
+import { createOllamaClient } from './adapters/ollamaClient.js';
 
 export async function createServices() {
   const database = await openDatabase();
@@ -24,6 +25,7 @@ export async function createServices() {
     hasher: createPasswordHasher(),
     session: createSessionStore(),
     readImage: readImageFile,
+    ollama: createOllamaClient(),
     loadSample: fetchSampleDataset,
     fullscreen: createFullscreen(),
     download: downloadFile,

@@ -22,6 +22,19 @@ export function createMemorySession(user = { role: 'admin' }) {
     },
   };
 }
+
+export function createFakeOllama(reply = () => '{}') {
+  const calls = [];
+  return {
+    calls,
+    listModels: async () => ['llama3.2', 'qwen2.5'],
+    chat: async (request) => {
+      calls.push(request);
+      return reply(request);
+    },
+  };
+}
+
 export async function createTestServices(overrides = {}) {
   counter += 1;
   const database = await openDatabase({ name: `app-test-${counter}-${Math.random()}` });
@@ -36,6 +49,7 @@ export async function createTestServices(overrides = {}) {
     hasher: createPasswordHasher(1000),
     session: createMemorySession(),
     readImage: async (file) => file,
+    ollama: createFakeOllama(),
     loadSample: async () => buildSampleDataset(),
     downloads,
     download: (name, text) => downloads.push({ name, text }),

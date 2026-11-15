@@ -6,6 +6,9 @@ import { createCrewStep } from '../missions/createCrewStep.js';
 import { createDataPanel } from '../datasets/createDataPanel.js';
 import { createCrewAccessPanel } from '../access/createCrewAccessPanel.js';
 import { createCapsuleSettings } from '../capsule/createCapsuleSettings.js';
+import { createOnboardSettings } from '../analysis/createOnboardSettings.js';
+import '../capsule/capsule.css';
+import '../analysis/analysis.css';
 import '../missions/missions.css';
 
 function tabLabel(app, state, tab) {
@@ -19,7 +22,7 @@ export function createSettingsScreen(app) {
   const tabs = createTabs({ name: 'settingsTab', ids: SETTINGS_TABS, onSelect: (tab) => app.commands.setSettingsTab(tab) });
   const hint = createElement('p', { class: 'screen__text screen__text--soft mission-hint' });
   const errors = createElement('ul', { class: 'screen__error mission-errors', role: 'alert' });
-  const panels = { mission: createMissionStep(app), crew: createCrewStep(app), access: createCrewAccessPanel(app), capsule: createCapsuleSettings(app), data: createDataPanel(app) };
+  const panels = { mission: createMissionStep(app), crew: createCrewStep(app), access: createCrewAccessPanel(app), capsule: createCapsuleSettings(app), onboard: createOnboardSettings(app), data: createDataPanel(app) };
   const element = createElement('section', { class: 'screen', 'data-screen': 'settings' }, title, intro, tabs.element, hint, ...Object.values(panels).map((panel) => panel.element), errors);
 
   function update(state) {

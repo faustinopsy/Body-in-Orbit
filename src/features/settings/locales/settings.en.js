@@ -5,4 +5,5 @@ export default {
   'settings.tab.data': 'Data and backup',
   'settings.tab.access': 'Crew access',
   'settings.tab.capsule': 'Mission capsule',
+  'settings.tab.onboard': 'Onboard superintelligence',
 };

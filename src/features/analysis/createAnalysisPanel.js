@@ -3,14 +3,17 @@ import { createStatusChip, setStatusChip } from '../../ui/createStatusChip.js';
 import { buildDayAnalysis } from '../../domain/analysis/buildDayAnalysis.js';
 import { todayOf } from '../../domain/missionDay.js';
 import { findingText, helpText } from './findingText.js';
+import { createOnboardAiCard } from './createOnboardAiCard.js';
 import './analysis.css';
 
-function createFinding(app, finding) {
+function createFinding(app, finding, focused) {
   const shape = createElement('span', { class: 'shape', 'data-status': finding.level, 'aria-hidden': 'true' });
   const text = createElement('p', { class: 'finding__text' }, findingText(app, finding));
   const help = helpText(app, finding);
   const extra = help ? [createElement('p', { class: 'finding__help' }, app.t('analysis.helps', { help }))] : [];
-  return createElement('li', { class: 'finding', 'data-kind': finding.kind, 'data-level': finding.level }, shape, createElement('div', {}, text, ...extra));
+  const item = createElement('li', { class: 'finding', 'data-kind': finding.kind, 'data-level': finding.level }, shape, createElement('div', {}, text, ...extra));
+  item.toggleAttribute('data-focus', focused);
+  return item;
 }
 
 export function createAnalysisPanel(app) {
@@ -21,8 +24,9 @@ export function createAnalysisPanel(app) {
   const missing = createElement('p', { class: 'analysis__missing' });
   const list = createElement('ul', { class: 'analysis__list' });
   const notice = createElement('p', { class: 'analysis__notice' });
+  const onboard = createOnboardAiCard(app);
   const head = createElement('div', { class: 'analysis__head' }, title, chip);
-  const element = createElement('section', { class: 'analysis', 'data-source': 'rules' }, head, source, headline, missing, list, notice);
+  const element = createElement('section', { class: 'analysis', 'data-source': 'rules' }, head, source, headline, missing, onboard.element, list, notice);
 
   function update(state) {
     const day = todayOf(state.dataset);
@@ -35,7 +39,10 @@ export function createAnalysisPanel(app) {
     headline.textContent = app.t(`analysis.headline.${analysis.level}`, { count });
     missing.hidden = analysis.answered;
     missing.textContent = app.t('analysis.missing');
-    list.replaceChildren(...analysis.findings.map((finding) => createFinding(app, finding)));
+    const run = onboard.currentRun(state);
+    const focus = run.status === 'ready' ? run.narrative.focus : [];
+    list.replaceChildren(...analysis.findings.map((finding, index) => createFinding(app, finding, focus.includes(index))));
+    onboard.update(state);
     notice.textContent = app.t('analysis.notice');
   }
 

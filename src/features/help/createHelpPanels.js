@@ -12,11 +12,12 @@ const visibleSections = (state, tab) => {
 export function createHelpPanels(app) {
   const figures = createRiskFigures(app);
   const table = createWeightTable(app);
-  const texts = { risks: createElement('div', {}), about: createElement('div', {}), method: createElement('div', {}) };
+  const texts = { risks: createElement('div', {}), about: createElement('div', {}), method: createElement('div', {}), onboard: createElement('div', {}) };
   const panels = {
     risks: createElement('div', { class: 'help__panel', role: 'tabpanel', 'data-panel': 'risks' }, figures.element, texts.risks),
     about: createElement('div', { class: 'help__panel', role: 'tabpanel', 'data-panel': 'about' }, texts.about, createElement('div', { class: 'help__table' }, table.element)),
     method: createElement('div', { class: 'help__panel', role: 'tabpanel', 'data-panel': 'method' }, texts.method),
+    onboard: createElement('div', { class: 'help__panel', role: 'tabpanel', 'data-panel': 'onboard' }, texts.onboard),
   };
   const element = createElement('div', { class: 'help__panels' }, ...Object.values(panels));
   let rendered = '';

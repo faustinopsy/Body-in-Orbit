@@ -21,15 +21,16 @@ import { setHelpMission } from './commands/setHelpMission.js';
 import { changeZoom } from './commands/changeZoom.js';
 import { confirmMission } from './commands/confirmMission.js';
 import { setSettingsTab } from './commands/setSettingsTab.js';
+import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
+import { togglePlayback, stepPlayback } from './commands/playback.js';
+import { setDetailTab } from './commands/setDetailTab.js';
 import { saveBackup, restoreBackup } from './commands/backup.js';
 import { sendDownlink } from './commands/sendDownlink.js';
 import { updateCheckIn, saveCheckIn, closeDay } from './commands/checkIn.js';
 import { createAdmin, signIn, signInDemo, signOut } from './commands/access.js';
 import { setCrewPassword } from './commands/crewPassword.js';
 import { addCapsuleItem, removeCapsuleItem, setUnlockEvery, setTodayTab, dismissReveal } from './commands/capsule.js';
-import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
-import { togglePlayback, stepPlayback } from './commands/playback.js';
-import { setDetailTab } from './commands/setDetailTab.js';
+import { setAiSettings, testOnboardAi, askOnboardAi } from './commands/onboardAi.js';
 
 export function createCommands(app) {
   return {
@@ -56,6 +57,11 @@ export function createCommands(app) {
     changeZoom: changeZoom(app),
     confirmMission: confirmMission(app),
     setSettingsTab: setSettingsTab(app),
+    setHelpTab: setHelpTab(app),
+    setHelpRisk: setHelpRisk(app),
+    togglePlayback: togglePlayback(app),
+    stepPlayback: stepPlayback(app),
+    setDetailTab: setDetailTab(app),
     saveBackup: saveBackup(app),
     restoreBackup: restoreBackup(app),
     sendDownlink: sendDownlink(app),
@@ -72,10 +78,8 @@ export function createCommands(app) {
     setUnlockEvery: setUnlockEvery(app),
     setTodayTab: setTodayTab(app),
     dismissReveal: dismissReveal(app),
-    setHelpTab: setHelpTab(app),
-    setHelpRisk: setHelpRisk(app),
-    togglePlayback: togglePlayback(app),
-    stepPlayback: stepPlayback(app),
-    setDetailTab: setDetailTab(app),
+    setAiSettings: setAiSettings(app),
+    testOnboardAi: testOnboardAi(app),
+    askOnboardAi: askOnboardAi(app),
   };
 }

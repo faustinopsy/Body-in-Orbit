@@ -12,4 +12,5 @@ export default {
   'help.tab.about': 'Como funciona',
   'help.tab.method': 'Linha do tempo e IA',
   'help.pickRisk': 'Escolha um sistema do corpo para ler sobre ele',
+  'help.tab.onboard': 'Tecnologia a bordo',
 };
