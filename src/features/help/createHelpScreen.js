@@ -1,11 +1,10 @@
 import { createElement } from '../../ui/createElement.js';
 import { createChoiceGroup } from '../../ui/createChoiceGroup.js';
+import { createTabs } from '../../ui/createTabs.js';
 import { MISSION_TYPES } from '../../domain/missions/missionTypes.js';
+import { HELP_TABS } from '../../app/commands/setHelpView.js';
 import { MISSION_ICONS } from '../missions/missionIcons.js';
-import { helpSections } from './content/helpContent.js';
-import { createRiskFigures } from './createRiskFigures.js';
-import { createWeightTable } from './createWeightTable.js';
-import { createHelpSection } from './createHelpSection.js';
+import { createHelpPanels } from './createHelpPanels.js';
 import '../dashboard/avatar.css';
 import './help.css';
 
@@ -18,27 +17,17 @@ export function createHelpScreen(app) {
     onChoose: (typeId) => app.commands.setHelpMission(typeId),
   });
   const selectText = createElement('span', { class: 'form__label' });
-  const figures = createRiskFigures(app);
-  const table = createWeightTable(app);
-  const sections = createElement('div', { class: 'help__sections' });
+  const tabs = createTabs({ name: 'helpTab', ids: HELP_TABS, onSelect: (tab) => app.commands.setHelpTab(tab) });
+  const panels = createHelpPanels(app);
   const element = createElement(
     'section',
     { class: 'screen help', 'data-screen': 'help' },
     title,
     intro,
     createElement('div', { class: 'form__field help__mission' }, selectText, missions.element),
-    figures.element,
-    createElement('div', { class: 'help__table' }, table.element),
-    sections,
+    tabs.element,
+    panels.element,
   );
-  let rendered = '';
-
-  function renderSections(state) {
-    const key = `${state.locale}:${state.helpMissionTypeId}`;
-    if (key === rendered) return;
-    rendered = key;
-    sections.replaceChildren(...helpSections(state.locale).map((section) => createHelpSection(app, section, state.helpMissionTypeId)));
-  }
 
   function update(state) {
     title.textContent = app.t('help.title');
@@ -49,9 +38,8 @@ export function createHelpScreen(app) {
       label: app.t('help.mission'),
       labelOf: (typeId) => app.t(`missionType.${typeId}`),
     });
-    figures.update(state);
-    table.update(state);
-    renderSections(state);
+    tabs.update({ selected: state.helpTab, label: app.t('help.tabs'), labelOf: (tab) => app.t(`help.tab.${tab}`) });
+    panels.update(state);
   }
 
   return { element, update };

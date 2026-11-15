@@ -16,10 +16,11 @@ beforeEach(async () => {
 
 const one = (selector) => root.querySelector(selector);
 const all = (selector) => [...root.querySelectorAll(selector)];
+const ids = (locale) => Object.values(HELP_CONTENT[locale]).flat().map((section) => section.id);
 
 describe('help screen', () => {
-  it('has the same sections in English and Portuguese', () => {
-    expect(HELP_CONTENT.pt.map((section) => section.id)).toEqual(HELP_CONTENT.en.map((section) => section.id));
+  it('has the same sections in every language', () => {
+    Object.keys(HELP_CONTENT).forEach((locale) => expect(ids(locale)).toEqual(ids('en')));
   });
 
   it('draws one body figure per risk, coloured by the mission weight', () => {
@@ -30,21 +31,38 @@ describe('help screen', () => {
     expect(one('.risk-figure[data-risk="sans"]').getAttribute('class')).toContain('status--critical');
   });
 
-  it('shows the weight table for every mission type', () => {
-    expect(all('.weight-table tbody tr')).toHaveLength(8);
+  it('shows only the text of the body system picked on the figures', () => {
+    expect(all('[data-panel="risks"] .help-section')).toHaveLength(1);
+    expect(one('#help-bone')).not.toBeNull();
+    one('.risk-figure[data-risk="sans"]').click();
+    expect(one('#help-bone')).toBeNull();
+    expect(one('.risk-figure[data-risk="sans"]').getAttribute('aria-pressed')).toBe('true');
   });
 
-  it('shows the NASA rating of each risk for the chosen mission', () => {
+  it('shows the NASA rating of the picked risk for the chosen mission', () => {
     app.commands.setHelpMission('mars-planetary');
+    app.commands.setHelpRisk('sans');
     expect(one('#help-sans .help-section__rating').textContent).toContain('operations 4x4, long-term health 4x5');
   });
 
-  it('switches the whole help to Portuguese', async () => {
+  it('splits the rest of the help in tabs', () => {
+    expect(one('[data-panel="about"]').hidden).toBe(true);
+    one('[data-tab="about"]').click();
+    expect(one('[data-panel="risks"]').hidden).toBe(true);
+    expect(all('.weight-table tbody tr')).toHaveLength(8);
+    expect(one('#help-weights')).not.toBeNull();
+    one('[data-tab="method"]').click();
+    expect(one('#help-localAi')).not.toBeNull();
+  });
+
+  it('switches the help to Portuguese', async () => {
     await app.commands.setLocale('pt');
+    app.commands.setHelpRisk('sleep');
     expect(one('#help-sleep h3').textContent).toBe('Sono e carga de trabalho');
   });
 
   it('opens source links in a new tab without giving the page access to the app', () => {
+    app.commands.setHelpRisk('radiation');
     const anchor = one('#help-radiation a');
     expect(anchor.getAttribute('href')).toContain('nasa.gov');
     expect(anchor.getAttribute('rel')).toBe('noopener noreferrer');

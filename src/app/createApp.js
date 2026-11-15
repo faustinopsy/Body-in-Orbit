@@ -24,7 +24,11 @@ const INITIAL_STATE = {
   welcomeOpen: false,
   missionDraft: createMissionDraft(),
   missionErrors: [],
+  missionStep: 'mission',
+  missionConfirmed: false,
   helpMissionTypeId: 'leo-long',
+  helpTab: 'risks',
+  helpRiskId: 'bone',
 };
 
 export async function createApp(root, services) {

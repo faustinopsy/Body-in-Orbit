@@ -19,7 +19,6 @@
     box-shadow: none;
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
-    zoom: var(--zoom, 1);
   }
 
   .board {
@@ -71,7 +70,6 @@
   .rail {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     gap: 8px;
     padding: 8px 6px;
@@ -84,8 +82,7 @@
     gap: 6px;
   }
 
-  .rail__button,
-  .zoom__button {
+  .rail__button {
     position: relative;
     display: grid;
     place-items: center;
@@ -98,8 +95,7 @@
     color: var(--color-text-2);
   }
 
-  .rail__button:not([aria-pressed='true']):hover,
-  .zoom__button:hover:not(:disabled) {
+  .rail__button:not([aria-pressed='true']):hover {
     border-color: transparent;
     background: color-mix(in srgb, var(--color-accent) 10%, transparent);
     color: var(--color-text);
@@ -125,31 +121,6 @@
     background: var(--shape-color);
     color: #fff;
     font: 700 10px/1 var(--font-data);
-  }
-
-  .zoom {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding-top: 8px;
-    border-top: 1px solid var(--color-grid);
-  }
-
-  .zoom__button {
-    display: flex;
-    align-items: baseline;
-    justify-content: center;
-    gap: 1px;
-    height: 30px;
-    font: 700 13px/1 var(--font-data);
-  }
-
-  .zoom__letter--small {
-    font-size: 12px;
-  }
-
-  .zoom__letter--big {
-    font-size: 17px;
   }
 
   .stage {

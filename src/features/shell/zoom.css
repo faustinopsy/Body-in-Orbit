@@ -1,0 +1,33 @@
+@layer features {
+  .shell__header,
+  .shell__main > .screen {
+    zoom: var(--zoom, 1);
+  }
+
+  .zoom__button {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1px;
+    height: 28px;
+    padding: 0 8px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--color-text-2);
+    font: 700 12px/1 var(--font-data);
+  }
+
+  .zoom__button:hover:not(:disabled) {
+    background: var(--color-surface);
+    color: var(--color-text);
+  }
+
+  .zoom__letter--small {
+    font-size: 11px;
+  }
+
+  .zoom__letter--big {
+    font-size: 15px;
+  }
+}

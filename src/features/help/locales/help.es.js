@@ -1,0 +1,15 @@
+export default {
+  'help.title': 'Ayuda: qué se monitorea y por qué',
+  'help.intro': 'Elige un tipo de misión para ver cuánto riesgo corre cada sistema del cuerpo. Los colores vienen de las clasificaciones de riesgo de la NASA para ese tipo de misión: verde es bajo, amarillo es moderado y rojo es alto. Haz clic en un cuerpo para leer sobre ese sistema.',
+  'help.mission': 'Tipo de misión',
+  'help.tableCaption': 'Pesos de riesgo por tipo de misión (el mayor entre las clasificaciones de operación y de salud a largo plazo)',
+  'help.missionColumn': 'Tipo de misión',
+  'help.sources': 'Fuentes',
+  'help.rating': '{mission}: operaciones {ops}, salud a largo plazo {health}. Peso {weight}% ({level}).',
+  'help.ratingShared': '{mission}: sin clasificación de la NASA en nuestras fuentes, usa el peso de los huesos. Peso {weight}% ({level}).',
+  'help.tabs': 'Temas de la ayuda',
+  'help.tab.risks': 'Riesgos por misión',
+  'help.tab.about': 'Cómo funciona',
+  'help.tab.method': 'Línea de tiempo e IA',
+  'help.pickRisk': 'Elige un sistema del cuerpo para leer sobre él',
+};

@@ -1,5 +1,6 @@
 import { createElement } from '../../ui/createElement.js';
 import { ZOOM_STEPS, zoomPercent } from '../../app/zoomSteps.js';
+import './zoom.css';
 
 function createZoomButton(app, step, size, sign) {
   const letter = createElement('span', { class: `zoom__letter zoom__letter--${size}`, 'aria-hidden': 'true' }, 'A');
@@ -9,9 +10,9 @@ function createZoomButton(app, step, size, sign) {
 }
 
 export function createZoomControls(app) {
-  const bigger = createZoomButton(app, 1, 'big', '+');
   const smaller = createZoomButton(app, -1, 'small', '−');
-  const element = createElement('div', { class: 'zoom', role: 'group' }, bigger, smaller);
+  const bigger = createZoomButton(app, 1, 'big', '+');
+  const element = createElement('div', { class: 'switch zoom', role: 'group' }, smaller, bigger);
 
   function label(button, key, zoom) {
     const text = app.t(key, { percent: zoomPercent(zoom) });

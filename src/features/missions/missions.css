@@ -23,6 +23,7 @@
   .crew-form__roles {
     grid-column: 1 / -1;
   }
+
   .form__field {
     display: flex;
     flex-direction: column;
@@ -95,5 +96,22 @@
 
   .mission-errors {
     padding-left: var(--space-4);
+  }
+
+  .mission-hint {
+    margin: var(--space-2) 0 0;
+  }
+
+  .mission-panel {
+    margin-top: var(--space-4);
+  }
+
+  .mission-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    margin: 0 0 var(--space-3);
+    font-weight: 600;
   }
 }

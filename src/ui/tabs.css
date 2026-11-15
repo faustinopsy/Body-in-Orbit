@@ -1,0 +1,31 @@
+@layer ui {
+  .tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-self: flex-start;
+    gap: 2px;
+    padding: 3px;
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--color-text) 6%, transparent);
+  }
+
+  .tab {
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 9px;
+    background: none;
+    color: var(--color-text-soft);
+    font-weight: 600;
+    font-size: 13px;
+  }
+
+  .tab:hover:not(:disabled) {
+    color: var(--color-text);
+  }
+
+  .tab[aria-selected='true'] {
+    background: var(--color-panel);
+    color: var(--color-text);
+    box-shadow: 0 1px 6px rgb(30 55 100 / 0.14);
+  }
+}

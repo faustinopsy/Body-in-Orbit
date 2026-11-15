@@ -4,7 +4,6 @@ import { LAYERS } from '../../domain/layers.js';
 import { worstStatus } from '../../domain/status.js';
 import { LAYER_ICONS } from './layerIcons.js';
 import { layerEntries, isAlert } from './layerEntries.js';
-import { createZoomControls } from './createZoomControls.js';
 
 function createRailButton(app, id) {
   const name = createElement('span', { class: 'sr-only' });
@@ -17,8 +16,7 @@ function createRailButton(app, id) {
 export function createLayerRail(app) {
   const items = LAYERS.map(({ id }) => createRailButton(app, id));
   const list = createElement('div', { class: 'rail__list', role: 'group' }, ...items.map((item) => item.element));
-  const zoom = createZoomControls(app);
-  const element = createElement('div', { class: 'rail glass' }, list, zoom.element);
+  const element = createElement('div', { class: 'rail glass' }, list);
 
   function updateItem(item, state, view) {
     const alerts = layerEntries(view.snapshot, item.id).filter((entry) => isAlert(entry.status));
@@ -34,7 +32,6 @@ export function createLayerRail(app) {
   function update(state, view) {
     list.setAttribute('aria-label', app.t('layers.label'));
     items.forEach((item) => updateItem(item, state, view));
-    zoom.update(state);
   }
 
   return { element, update };

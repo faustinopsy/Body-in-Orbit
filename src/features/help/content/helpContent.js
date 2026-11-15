@@ -4,10 +4,14 @@ import risksEn from './risks.en.js';
 import overviewPt from './overview.pt.js';
 import methodPt from './method.pt.js';
 import risksPt from './risks.pt.js';
+import overviewEs from './overview.es.js';
+import methodEs from './method.es.js';
+import risksEs from './risks.es.js';
 
 export const HELP_CONTENT = {
-  en: [...overviewEn, ...risksEn, ...methodEn],
-  pt: [...overviewPt, ...risksPt, ...methodPt],
+  en: { about: overviewEn, risks: risksEn, method: methodEn },
+  pt: { about: overviewPt, risks: risksPt, method: methodPt },
+  es: { about: overviewEs, risks: risksEs, method: methodEs },
 };
 
-export const helpSections = (locale) => HELP_CONTENT[locale] ?? HELP_CONTENT.en;
+export const helpSections = (locale, tab) => (HELP_CONTENT[locale] ?? HELP_CONTENT.en)[tab];

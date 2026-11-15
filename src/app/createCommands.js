@@ -19,6 +19,9 @@ import { removeCrewMember } from './commands/removeCrewMember.js';
 import { saveMission } from './commands/saveMission.js';
 import { setHelpMission } from './commands/setHelpMission.js';
 import { changeZoom } from './commands/changeZoom.js';
+import { confirmMission } from './commands/confirmMission.js';
+import { setMissionStep } from './commands/setMissionStep.js';
+import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
 
 export function createCommands(app) {
   return {
@@ -43,5 +46,9 @@ export function createCommands(app) {
     saveMission: saveMission(app),
     setHelpMission: setHelpMission(app),
     changeZoom: changeZoom(app),
+    confirmMission: confirmMission(app),
+    setMissionStep: setMissionStep(app),
+    setHelpTab: setHelpTab(app),
+    setHelpRisk: setHelpRisk(app),
   };
 }

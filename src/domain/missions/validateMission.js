@@ -13,7 +13,7 @@ export function validateMember(member) {
   return CREW_ROLES.includes(member.role) ? errors : ['role', ...errors];
 }
 
-function missionErrors(mission) {
+export function missionFieldErrors(mission) {
   const errors = [];
   const type = missionTypeById(mission.typeId);
   const name = String(mission.name ?? '').trim();
@@ -21,14 +21,17 @@ function missionErrors(mission) {
   if (!type) errors.push('type');
   const days = mission.durationDays;
   if (type && (!Number.isInteger(days) || !inside(days, [type.minDays, type.maxDays]))) errors.push('duration');
-  if (mission.crew.length === 0) errors.push('crew');
-  if (mission.crew.length > MAX_CREW) errors.push('crewSize');
   return errors;
+}
+
+function crewErrors(mission) {
+  if (mission.crew.length === 0) return ['crew'];
+  return mission.crew.length > MAX_CREW ? ['crewSize'] : [];
 }
 
 export function validateMission(mission) {
   const memberErrors = mission.crew.some((member) => validateMember(member).length > 0) ? ['member'] : [];
-  return [...missionErrors(mission), ...memberErrors];
+  return [...missionFieldErrors(mission), ...crewErrors(mission), ...memberErrors];
 }
 
 export const nextCrewCode = (crew) => `C${String(crew.length + 1).padStart(2, '0')}`;
