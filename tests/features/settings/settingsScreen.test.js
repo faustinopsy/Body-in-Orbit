@@ -12,7 +12,7 @@ beforeEach(async () => {
   services = await createTestServices();
   app = await createApp(root, services);
   app.commands.closeWelcome();
-  app.commands.goTo('mission');
+  app.commands.goTo('settings');
 });
 
 const one = (selector) => root.querySelector(selector);
@@ -34,7 +34,7 @@ function createMission(name = 'Mars 2040', typeId = 'mars-planetary') {
   one('.mission-next').click();
 }
 
-describe('mission screen', () => {
+describe('settings: mission and crew', () => {
   it('shows the six risk weights of the chosen mission type', () => {
     expect(all('.risk-row')).toHaveLength(6);
     choose('missionType', 'mars-planetary');
@@ -50,7 +50,7 @@ describe('mission screen', () => {
     one('.mission-next').click();
     expect(app.store.getState().missionErrors).toEqual(['name']);
     createMission();
-    expect(app.store.getState().missionStep).toBe('crew');
+    expect(app.store.getState().settingsTab).toBe('crew');
     expect(one('[data-tab="crew"]').disabled).toBe(false);
     expect(one('.mission-summary__text').textContent).toBe('Mars 2040 · Mars planetary · 900 days');
   });
@@ -81,7 +81,7 @@ describe('mission screen', () => {
     one('[data-code="C01"]').click();
     expect(app.store.getState().missionDraft.crew.map((member) => member.code)).toEqual(['C01']);
     one('.mission-summary__edit').click();
-    expect(app.store.getState().missionStep).toBe('mission');
+    expect(app.store.getState().settingsTab).toBe('mission');
   });
 
   it('saves the mission and opens its projected timeline', async () => {
@@ -89,7 +89,7 @@ describe('mission screen', () => {
     app.commands.addCrewMember(crewMember);
     await app.commands.saveMission();
     const state = app.store.getState();
-        expect(state).toMatchObject({ route: 'dashboard', crewId: 'C01', day: 1, missionConfirmed: false, missionStep: 'mission' });
+    expect(state).toMatchObject({ route: 'dashboard', crewId: 'C01', day: 1, missionConfirmed: false, settingsTab: 'mission' });
     expect(state.dataset.missionTypeId).toBe('mars-planetary');
     expect(await services.missions.list()).toHaveLength(1);
   });

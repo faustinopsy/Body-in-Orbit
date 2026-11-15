@@ -18,7 +18,7 @@ export function createCrewStep(app) {
     privacy,
     save,
   );
-  edit.addEventListener('click', () => app.commands.setMissionStep('mission'));
+  edit.addEventListener('click', () => app.commands.setSettingsTab('mission'));
   save.addEventListener('click', () => app.commands.saveMission());
 
   function update(state) {

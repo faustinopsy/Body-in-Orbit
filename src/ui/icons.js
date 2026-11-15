@@ -5,6 +5,7 @@ import {
   CalendarDays,
   CircleHelp,
   Database,
+  Download,
   ExternalLink,
   Eye,
   FlaskConical,
@@ -25,8 +26,11 @@ import {
   Radiation,
   Rocket,
   Satellite,
+  SatelliteDish,
+  Settings,
   Star,
   Sun,
+  Upload,
   Wrench,
 } from 'lucide';
 
@@ -36,6 +40,7 @@ const ICONS = {
   'calendar-days': CalendarDays,
   'circle-help': CircleHelp,
   database: Database,
+  download: Download,
   'external-link': ExternalLink,
   eye: Eye,
   'flask-conical': FlaskConical,
@@ -56,8 +61,11 @@ const ICONS = {
   radiation: Radiation,
   rocket: Rocket,
   satellite: Satellite,
+  'satellite-dish': SatelliteDish,
+  settings: Settings,
   star: Star,
   sun: Sun,
+  upload: Upload,
   wrench: Wrench,
 };
 

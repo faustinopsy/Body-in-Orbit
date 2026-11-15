@@ -4,10 +4,9 @@ import { ROUTES } from '../../app/routes.js';
 
 const ROUTE_ICONS = {
   dashboard: 'layout-dashboard',
-  mission: 'rocket',
   today: 'calendar-days',
-  data: 'database',
   help: 'circle-help',
+  settings: 'settings',
 };
 
 function createButton(app, route) {

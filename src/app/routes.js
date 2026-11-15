@@ -1,2 +1,1 @@
-export const ROUTES = ['dashboard', 'mission', 'today', 'data', 'help'];
-
+export const ROUTES = ['dashboard', 'today', 'help', 'settings'];

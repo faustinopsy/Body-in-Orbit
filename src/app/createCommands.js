@@ -20,7 +20,9 @@ import { saveMission } from './commands/saveMission.js';
 import { setHelpMission } from './commands/setHelpMission.js';
 import { changeZoom } from './commands/changeZoom.js';
 import { confirmMission } from './commands/confirmMission.js';
-import { setMissionStep } from './commands/setMissionStep.js';
+import { setSettingsTab } from './commands/setSettingsTab.js';
+import { saveBackup, restoreBackup } from './commands/backup.js';
+import { sendDownlink } from './commands/sendDownlink.js';
 import { setHelpTab, setHelpRisk } from './commands/setHelpView.js';
 import { togglePlayback, stepPlayback } from './commands/playback.js';
 import { setDetailTab } from './commands/setDetailTab.js';
@@ -49,7 +51,10 @@ export function createCommands(app) {
     setHelpMission: setHelpMission(app),
     changeZoom: changeZoom(app),
     confirmMission: confirmMission(app),
-    setMissionStep: setMissionStep(app),
+    setSettingsTab: setSettingsTab(app),
+    saveBackup: saveBackup(app),
+    restoreBackup: restoreBackup(app),
+    sendDownlink: sendDownlink(app),
     setHelpTab: setHelpTab(app),
     setHelpRisk: setHelpRisk(app),
     togglePlayback: togglePlayback(app),

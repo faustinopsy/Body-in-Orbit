@@ -19,10 +19,10 @@ async function startEnglishApp(overrides) {
 }
 
 describe('app shell', () => {
-  it('renders the title and the three navigation buttons', async () => {
+    it('renders the title and the four navigation buttons', async () => {
     await startEnglishApp();
     expect(text('.shell__title')).toBe('Body in Orbit');
-        expect(root.querySelectorAll('.nav__button')).toHaveLength(5);
+    expect(root.querySelectorAll('.nav__button')).toHaveLength(4);
   });
 
   it('switches language and remembers it', async () => {
@@ -56,9 +56,10 @@ describe('app shell', () => {
 
   it('shows an error when the demo cannot be loaded', async () => {
     const app = await startEnglishApp({ loadSample: async () => { throw new Error('offline'); } });
-    app.commands.goTo('data');
+    app.commands.goTo('settings');
+    app.commands.setSettingsTab('data');
     await app.commands.openSample();
-    expect(text('.screen__error')).toBe('The demo could not be loaded.');
+    expect(text('.data-error')).toBe('The demo could not be loaded.');
   });
 
   it('rejects a demo that fails validation', async () => {

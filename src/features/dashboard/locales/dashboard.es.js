@@ -1,7 +1,7 @@
 export default {
   'dashboard.title': 'Panel de la tripulación',
   'dashboard.summary': '{crew} tripulantes y {days} días de misión en el conjunto "{name}".',
-  'dashboard.empty': 'No hay ningún conjunto de datos abierto. Ve a Datos y abre la demostración.',
+  'dashboard.empty': 'No hay ningún conjunto de datos abierto. Abre Configuración › Datos y copia de seguridad y carga la demostración.',
   'dashboard.notice': 'Datos simulados para demostración. Esto no es un consejo médico ni un diagnóstico.',
   'crew.label': 'Tripulante',
   'layers.label': 'Capas del cuerpo',

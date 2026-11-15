@@ -1,4 +1,5 @@
 export default {
+  'nav.settings': 'Settings',
   'app.title': 'Body in Orbit',
   'nav.label': 'Main navigation',
   'nav.dashboard': 'Dashboard',

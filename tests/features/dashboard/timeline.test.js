@@ -57,7 +57,7 @@ describe('timeline', () => {
   });
 
   it('starts a new mission today and shows the rest as projection', async () => {
-    app.commands.goTo('mission');
+    app.commands.goTo('settings');
     app.commands.updateMissionDraft({ name: 'Mars 2040', typeId: 'mars-planetary' });
     app.commands.confirmMission();
     app.commands.addCrewMember({ role: 'pilot', age: 40, weightKg: 70, heightCm: 175 });

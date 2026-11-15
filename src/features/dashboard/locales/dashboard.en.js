@@ -1,7 +1,7 @@
 export default {
   'dashboard.title': 'Crew dashboard',
   'dashboard.summary': '{crew} crew members and {days} mission days in the "{name}" dataset.',
-  'dashboard.empty': 'No dataset is open. Go to Data and open the demo.',
+  'dashboard.empty': 'No dataset is open. Open Settings › Data and backup, and load the demo.',
   'dashboard.notice': 'Simulated data for demonstration. This is not medical advice or a diagnosis.',
   'crew.label': 'Crew member',
   'layers.label': 'Body layers',

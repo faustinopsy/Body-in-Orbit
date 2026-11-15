@@ -3,8 +3,8 @@ import { buildMissionDataset } from '../../domain/missions/projectMission.js';
 import { initialView } from '../initialView.js';
 
 function showErrors(app, mission, errors) {
-  const step = missionFieldErrors(mission).length > 0 ? 'mission' : app.store.getState().missionStep;
-  app.store.update({ missionErrors: errors, missionStep: step });
+  const tab = missionFieldErrors(mission).length > 0 ? 'mission' : app.store.getState().settingsTab;
+  app.store.update({ missionErrors: errors, settingsTab: tab });
 }
 
 export const saveMission = (app) => async () => {
@@ -22,7 +22,7 @@ export const saveMission = (app) => async () => {
     route: 'dashboard',
     missionDraft: createMissionDraft(),
     missionErrors: [],
-    missionStep: 'mission',
+    settingsTab: 'mission',
     missionConfirmed: false,
   });
 };
